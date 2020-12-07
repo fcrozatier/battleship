@@ -13,21 +13,21 @@ test("a ship is hit at position 0 and 2", () => {
   const ship = Ship(4);
   ship.hit(0);
   ship.hit(2);
-  expect(ship).toHaveProperty("hits", [0, 2]);
+  expect(ship.hits).toEqual([0, 2]);
 });
 
 test("cannot hit the same position twice", () => {
   const ship = Ship(3);
   ship.hit(1);
   ship.hit(1);
-  expect(ship).not.toHaveProperty("hits", [1, 1]);
+  expect(ship.hits).toEqual([1]);
 });
 
 test("cannot hit outside the ship", () => {
   const ship = Ship(3);
   ship.hit(3);
   ship.hit(-1);
-  expect(ship).toHaveProperty("hits", []);
+  expect(ship.hits).toEqual([]);
 });
 
 test('a ship sunks when it is hit everywhere', ()=> {

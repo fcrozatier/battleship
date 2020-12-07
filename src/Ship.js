@@ -6,7 +6,6 @@ export const Ship = (length) => {
   const hit = (position) => {
     if (!hits.includes(position) && position < length && position >= 0) {
       hits.push(position);
-      isSunk();
     }
   };
 

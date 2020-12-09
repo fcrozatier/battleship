@@ -9,27 +9,13 @@ test("don't allow negative length", () => {
   expect(() => Ship(0)).toThrow();
 });
 
-test("a ship is hit at position 0 and 2", () => {
+test('a ship sunks when it is hit too many times', ()=> {
   const ship = Ship(4);
-  ship.hit(0);
-  ship.hit(2);
-  expect(ship.hits).toEqual([0, 2]);
-});
-
-test("cannot hit the same position twice", () => {
-  const ship = Ship(3);
-  ship.hit(1);
-  ship.hit(1);
-  expect(ship.hits).toEqual([1]);
-});
-
-test('a ship sunks when it is hit everywhere', ()=> {
-  const ship = Ship(4);
-  ship.hit(0);
-  ship.hit(1);
-  ship.hit(2);
+  ship.hit();
+  ship.hit();
+  ship.hit();
   expect(ship.isSunk()).toBe(false);
-  ship.hit(3);
+  ship.hit();
   expect(ship.isSunk()).toBe(true);
 })
 

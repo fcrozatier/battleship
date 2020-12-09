@@ -1,16 +1,14 @@
 export const Ship = (length) => {
   if (length < 1) throw new Error("a ship must have a positive length");
 
-  const hits = [];
+  let hits = 0;
 
-  const hit = (position) => {
-    if (!hits.includes(position)) {
-      hits.push(position);
-    }
+  const hit = () => {
+    hits += 1
   };
 
   const isSunk = () => {
-    return hits.length === length;
+    return hits === length;
   }
 
   return {

@@ -71,12 +71,12 @@ export const Gameboard = (size) => {
 
   const receiveAttack = (x, y) => {
     const index = toIdx(x, y);
-    if (board[index] === 0) {
+    const ship = board[index];
+    if (ship === 0) {
       missed.push(index);
     } else {
-      const ship = board[index];
       hits.push(index);
-      ship.hit(index);
+      ship.hit();
     }
   };
 

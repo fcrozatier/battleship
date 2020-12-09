@@ -1,13 +1,18 @@
 export const Gameboard = (size) => {
   let board = Array(size * size).fill(0);
-  let ships = [];
+  let missed = [];
+  let hits = [];
 
   const position = (x, y, ship, v = false) => {
     return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
   };
 
+  const toIdx = (x, y) => {
+    return (x - 1) * size - 1 + y;
+  };
+
   const targetHIdx = (x, y, length) => {
-    const startIdx = (x - 1) * size - 1 + y;
+    const startIdx = toIdx(x, y);
     const endIdx = startIdx + length - 1;
 
     return [startIdx, endIdx];
@@ -27,19 +32,16 @@ export const Gameboard = (size) => {
       return false;
     }
 
-    let position = [];
     for (let i = 0; i < shipSize; i++) {
       const index = startIdx + i;
-      position.push(index);
       board[index] = ship;
     }
 
-    ships.push({ ship, position });
     return true;
   };
 
   const targetVIdx = (x, y, length) => {
-    const start = (x - 1) * size - 1 + y;
+    const start = toIdx(x, y);
     const end = start + length * (size - 1);
 
     return [start, end];
@@ -59,19 +61,29 @@ export const Gameboard = (size) => {
       return false;
     }
 
-    let position = [];
     for (let i = 0; i < shipSize; i++) {
       const index = start + i * size;
-      position.push(index);
       board[index] = ship;
     }
-
-    ships.push({ ship, position });
     return true;
+  };
+
+  const receiveAttack = (x, y) => {
+    const index = toIdx(x, y);
+    if (board[index] === 0) {
+      missed.push(index);
+    } else {
+      const ship = board[index];
+      hits.push(index);
+      ship.hit(index);
+    }
   };
 
   return {
     board,
+    hits,
+    missed,
     position,
+    receiveAttack,
   };
 };

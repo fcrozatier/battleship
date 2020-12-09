@@ -4,7 +4,7 @@ export const Ship = (length) => {
   const hits = [];
 
   const hit = (position) => {
-    if (!hits.includes(position) && position < length && position >= 0) {
+    if (!hits.includes(position)) {
       hits.push(position);
     }
   };

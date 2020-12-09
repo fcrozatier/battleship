@@ -23,13 +23,6 @@ test("cannot hit the same position twice", () => {
   expect(ship.hits).toEqual([1]);
 });
 
-test("cannot hit outside the ship", () => {
-  const ship = Ship(3);
-  ship.hit(3);
-  ship.hit(-1);
-  expect(ship.hits).toEqual([]);
-});
-
 test('a ship sunks when it is hit everywhere', ()=> {
   const ship = Ship(4);
   ship.hit(0);

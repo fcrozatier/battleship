@@ -39,3 +39,9 @@ test('a ship sunks when it is hit everywhere', ()=> {
   ship.hit(3);
   expect(ship.isSunk()).toBe(true);
 })
+
+test('ships are not equal', ()=> {
+  const ship1 = Ship(2);
+  const ship2 = Ship(2);
+  expect(ship1).not.toEqual(ship2);
+})

@@ -1,10 +1,13 @@
 export const Gameboard = (size) => {
   let board = Array(size * size).fill(0);
-  let missed = [];
-  let hits = [];
+  const fleet = []
+  const missed = [];
+  const hits = [];
 
   const position = (x, y, ship, v = false) => {
+    fleet.push(ship);
     return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
+
   };
 
   const toIdx = (x, y) => {
@@ -32,9 +35,8 @@ export const Gameboard = (size) => {
       return false;
     }
 
-    for (let i = 0; i < shipSize; i++) {
-      const index = startIdx + i;
-      board[index] = ship;
+    for (let i = startIdx; i < startIdx + shipSize; i++) {
+      board[i] = ship;
     }
 
     return true;
@@ -61,9 +63,8 @@ export const Gameboard = (size) => {
       return false;
     }
 
-    for (let i = 0; i < shipSize; i++) {
-      const index = start + i * size;
-      board[index] = ship;
+    for (let i = start; i < start + shipSize * size; i += size) {
+      board[i] = ship;
     }
     return true;
   };
@@ -79,8 +80,13 @@ export const Gameboard = (size) => {
     }
   };
 
+  const fleetSunk = () => {
+    return fleet.every(ship => ship.isSunk())
+  }
+
   return {
     board,
+    fleetSunk,
     hits,
     missed,
     position,

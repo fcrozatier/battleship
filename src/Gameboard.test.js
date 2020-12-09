@@ -61,7 +61,7 @@ test("can't overlap ships", () => {
   expect(gameboard.position(1, 1, ship2, true)).toBeFalsy();
 });
 
-test("can receive attack", () => {
+test("receive attack", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, 1, ship);
@@ -76,3 +76,14 @@ test("can receive attack", () => {
   expect(gameboard.hits).toEqual([2,3]);
   expect(ship.isSunk()).toBeTruthy()
 });
+
+test('fleet sunk', ()=> {
+  const gameboard = Gameboard(2);
+  const ship = Ship(2);
+  gameboard.position(2, 1, ship);
+  expect(gameboard.fleetSunk()).toBeFalsy();
+  gameboard.receiveAttack(2,1)
+  expect(gameboard.fleetSunk()).toBeFalsy();
+  gameboard.receiveAttack(2,2)
+  expect(gameboard.fleetSunk()).toBeTruthy();
+})

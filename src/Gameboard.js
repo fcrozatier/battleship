@@ -1,13 +1,14 @@
-export const Gameboard = (size) => {
+import { Ship } from "./Ship";
+
+export const Gameboard = (size = 10) => {
   let board = Array(size * size).fill(0);
-  const fleet = []
+  const fleet = [];
   const missed = [];
   const hits = [];
 
   const position = (x, y, ship, v = false) => {
     fleet.push(ship);
     return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
-
   };
 
   const toIdx = (x, y) => {
@@ -44,7 +45,7 @@ export const Gameboard = (size) => {
 
   const targetVIdx = (x, y, length) => {
     const start = toIdx(x, y);
-    const end = start + length * (size - 1);
+    const end = start + (length - 1) * size;
 
     return [start, end];
   };
@@ -54,13 +55,16 @@ export const Gameboard = (size) => {
     const [start, end] = targetVIdx(x, y, shipSize);
 
     // Cannot position outside grid
-    if (end >= size * size) {
+    if (end >= size * size - 1) {
+      console.log("outside");
       return false;
     }
 
     // Check positions are free
-    if (board.slice(start, end + 1).some((el) => el !== 0)) {
-      return false;
+    for (let i = start; i <= end; i += size) {
+      if(board[i] !== 0){
+        return false
+      }
     }
 
     for (let i = start; i < start + shipSize * size; i += size) {
@@ -81,7 +85,22 @@ export const Gameboard = (size) => {
   };
 
   const fleetSunk = () => {
-    return fleet.every(ship => ship.isSunk())
+    return fleet.every((ship) => ship.isSunk());
+  };
+
+  // default config
+  if (size === 10) {
+    const carrier = Ship(5);
+    const battleship = Ship(4);
+    const destroyer = Ship(3);
+    const submarine = Ship(3);
+    const patrol = Ship(2);
+
+    position(3, 3, carrier, true);
+    position(1, 5, battleship);
+    position(6, 6, destroyer);
+    position(1, 2, submarine, true);
+    position(4, 7, patrol, true);
   }
 
   return {

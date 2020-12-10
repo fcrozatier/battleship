@@ -91,5 +91,6 @@ export const Gameboard = (size) => {
     missed,
     position,
     receiveAttack,
+    size,
   };
 };

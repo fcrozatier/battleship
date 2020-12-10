@@ -56,7 +56,6 @@ export const Gameboard = (size = 10) => {
 
     // Cannot position outside grid
     if (end >= size * size - 1) {
-      console.log("outside");
       return false;
     }
 

@@ -1,0 +1,7 @@
+.head {
+  text-align: center;
+}
+
+.display-boards {
+  display: flex;
+}

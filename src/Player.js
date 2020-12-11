@@ -1,16 +1,12 @@
 export const Player = (enemy_board, ai) => {
   const gameboard = enemy_board;
   const isBot = ai;
-  const shoots = [];
 
   const attackPosition = (index) => {
-    if (shoots.includes(index)) {
-      return false;
-    } else {
-      shoots.push(index);
+    if (!gameboard.hits.includes(index)) {
       gameboard.receiveAttack(index);
-      return gameboard;
     }
+    return gameboard;
   };
 
   const attack = (index) => {

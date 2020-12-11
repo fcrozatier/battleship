@@ -72,8 +72,7 @@ export const Gameboard = (size = 10) => {
     return true;
   };
 
-  const receiveAttack = (x, y) => {
-    const index = toIdx(x, y);
+  const receiveAttack = (index) => {
     const ship = board[index];
     if (ship === 0) {
       missed.push(index);

@@ -11,8 +11,8 @@ test("attack position", () => {
 test("can't attack same position twice", () => {
   const gameboard = Gameboard(2);
   const player = Player(gameboard, false);
-  expect(player.attack()(1, 1)).toBeTruthy();
-  expect(player.attack()(1, 1)).toBeFalsy();
+  expect(player.attack(1)).toBeTruthy();
+  expect(player.attack(1)).toBeFalsy();
 });
 
 test("wins if the fleet is sunk", () => {
@@ -21,8 +21,8 @@ test("wins if the fleet is sunk", () => {
   gameboard.position(1, 2, ship);
   const player = Player(gameboard, false);
   expect(player.isWinner()).toBeFalsy();
-  player.attack()(1, 1);
+  player.attack(0);
   expect(player.isWinner()).toBeFalsy();
-  player.attack()(1, 2);
+  player.attack(1);
   expect(player.isWinner()).toBeTruthy();
 });

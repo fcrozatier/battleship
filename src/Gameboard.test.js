@@ -65,14 +65,14 @@ test("receive attack", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, 1, ship);
-  gameboard.receiveAttack(1, 1);
+  gameboard.receiveAttack(0);
   expect(gameboard.missed).toEqual([0]);
 
-  gameboard.receiveAttack(2, 1);
+  gameboard.receiveAttack(2);
   expect(gameboard.hits).toEqual([0, 2]);
   expect(ship.isSunk()).toBeFalsy();
 
-  gameboard.receiveAttack(2, 2);
+  gameboard.receiveAttack(3);
   expect(gameboard.hits).toEqual([0, 2, 3]);
   expect(ship.isSunk()).toBeTruthy();
 });

@@ -3,28 +3,22 @@ export const Player = (enemy_board, ai) => {
   const isBot = ai;
   const shoots = [];
 
-  const toIdx = (x, y) => {
-    return (x - 1) * board.size - 1 + y;
-  };
-
-  const attackPosition = (x, y) => {
-    const index = toIdx(x, y);
+  const attackPosition = (index) => {
     if (shoots.includes(index)) {
       return false;
     } else {
       shoots.push(index);
-      board.receiveAttack(x, y);
+      board.receiveAttack(index);
       return true;
     }
   };
 
-  const attack = () => {
+  const attack = (index) => {
     if (isBot) {
-      const x = Math.ceil(Math.random() * board.size);
-      const y = Math.ceil(Math.random() * board.size);
-      return attackPosition(x, y);
+      const index = Math.floor(Math.random() * board.size ** 2);
+      return attackPosition(index);
     } else {
-      return attackPosition;
+      return attackPosition(index);
     }
   };
 

@@ -1,4 +1,4 @@
-import Board  from "./Board";
+import Board  from "./components/Board";
 // import { Player } from "./Player";
 import "./app.css";
 import { Gameboard } from "./Gameboard";
@@ -18,10 +18,10 @@ function App() {
       <div className="head">Battleship</div>
       <div className="display-boards">
         <div className="my-board">
-          <Board gameboard={gameboard0} own/>
+          <Board cells={gameboard0.board} hits={gameboard0.hits} own/>
         </div>
         <div className="enemy-board">
-          <Board gameboard={gameboard1} />
+          <Board cells={gameboard1.board} hits={gameboard1.hits} />
         </div>
       </div>
     </div>

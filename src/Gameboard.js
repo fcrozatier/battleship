@@ -1,7 +1,7 @@
 import { Ship } from "./Ship";
 
 export const Gameboard = (size = 10) => {
-  let board = Array(size * size).fill(0);
+  const board = Array(size * size).fill(0);
   const fleet = [];
   const missed = [];
   const hits = [];
@@ -78,9 +78,9 @@ export const Gameboard = (size = 10) => {
     if (ship === 0) {
       missed.push(index);
     } else {
-      hits.push(index);
       ship.hit();
     }
+    hits.push(index);
   };
 
   const fleetSunk = () => {

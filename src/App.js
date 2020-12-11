@@ -1,27 +1,19 @@
-import Board  from "./components/Board";
-// import { Player } from "./Player";
+import Board from "./components/Board";
+import Game from "./Game";
 import "./app.css";
-import { Gameboard } from "./Gameboard";
 
 function App() {
-  // let playing = 0;
-  // const player = Player();
-  const gameboard0 = Gameboard();
-  const gameboard1 = Gameboard();
-
-  // const nextPlayer = () => {
-  //   return (playing = (playing + 1) % 2);
-  // };
+  const { gameboard0, gameboard1, handleTurn } = Game();
 
   return (
     <div className="App">
       <div className="head">Battleship</div>
       <div className="display-boards">
         <div className="my-board">
-          <Board cells={gameboard0.board} hits={gameboard0.hits} own/>
+          <Board cells={gameboard0.board} hits={gameboard0.hits} own />
         </div>
         <div className="enemy-board">
-          <Board cells={gameboard1.board} hits={gameboard1.hits} />
+          <Board cells={gameboard1.board} hits={gameboard1.hits} onClick={handleTurn}/>
         </div>
       </div>
     </div>

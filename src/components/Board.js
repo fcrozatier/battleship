@@ -10,7 +10,7 @@ const Board = ({ cells, hits, own, onClick }) => {
             value={cell}
             own={own}
             hit={hits.includes(cell)}
-            onClick={onClick}
+            onClick={() => onClick(i)}
           />
         );
       })}

@@ -24,5 +24,6 @@ export const Player = (enemy_board, ai) => {
   return {
     attack,
     isWinner,
+    gameboard,
   };
 };

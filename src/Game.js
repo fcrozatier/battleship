@@ -18,11 +18,21 @@ const Game = () => {
     nextTurn();
     player1.attack();
     nextTurn();
+
+    return {
+      gameboard0,
+      gameboard1,
+      player0,
+      player1,
+      handleTurn,
+    };
   };
 
   return {
     gameboard0,
     gameboard1,
+    player0,
+    player1,
     handleTurn,
   };
 };

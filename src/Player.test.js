@@ -9,6 +9,14 @@ test("attack position", () => {
   expect(gameboard.hits.length).toBe(1);
 });
 
+test("internal gameboard changes", () => {
+  const gameboard = Gameboard(2);
+  const player = Player(gameboard, false);
+  expect(player.gameboard.hits).toEqual([]);
+  player.attack(1);
+  expect(player.gameboard.hits).toEqual([1]);
+});
+
 test("can't attack same position twice", () => {
   const gameboard = Gameboard(2);
   const player = Player(gameboard, false);

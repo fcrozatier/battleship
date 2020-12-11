@@ -22,6 +22,18 @@
   align-items: center;
 }
 
+.enemy-board .cell {
+  cursor: pointer;
+}
+
+.enemy-board .cell.hit {
+  cursor: initial;
+}
+
 .ship {
   background-color: blue;
+}
+
+.ship.hit {
+  background-color: red;
 }

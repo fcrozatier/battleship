@@ -4,13 +4,18 @@ const Board = ({ cells, hits, own, onClick }) => {
   return (
     <div className="board-grid">
       {cells.map((cell, i) => {
+        const value = cell !== 0;
         return (
           <Cell
             key={i}
-            value={cell}
+            value={value}
             own={own}
-            hit={hits.includes(cell)}
-            onClick={() => onClick(i)}
+            hit={hits.includes(i)}
+            onClick={() => {
+              if (onClick) {
+                onClick(i);
+              }
+            }}
           />
         );
       })}

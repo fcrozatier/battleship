@@ -1,5 +1,5 @@
 export const Player = (enemy_board, ai) => {
-  const board = enemy_board;
+  const gameboard = enemy_board;
   const isBot = ai;
   const shoots = [];
 
@@ -8,22 +8,21 @@ export const Player = (enemy_board, ai) => {
       return false;
     } else {
       shoots.push(index);
-      board.receiveAttack(index);
-      return true;
+      gameboard.receiveAttack(index);
+      return gameboard;
     }
   };
 
   const attack = (index) => {
+    let i = index;
     if (isBot) {
-      const index = Math.floor(Math.random() * board.size ** 2);
-      return attackPosition(index);
-    } else {
-      return attackPosition(index);
+      i = Math.floor(Math.random() * gameboard.size ** 2);
     }
+    return attackPosition(i);
   };
 
   const isWinner = () => {
-    return board.fleetSunk();
+    return gameboard.fleetSunk();
   };
 
   return {

@@ -6,18 +6,30 @@ const Game = () => {
   const gameboard1 = Gameboard();
   const player0 = Player(gameboard1, false);
   const player1 = Player(gameboard0, true);
-  let playerTurn = 0;
+  let playerTurn = player0;
+  let winner;
 
   const nextTurn = () => {
-    playerTurn = (playerTurn + 1) % 2;
-    return playerTurn;
+    playerTurn = (playerTurn === player0 ) ? player1 : player0;
   };
 
+  const calculateWinner = () => {
+    const player = playerTurn;
+    if (player.gameboard.fleetSunk()){
+      winner = player;
+    }
+  }
+
+  const makeTurn = (i) => {
+    if(winner) return;
+    playerTurn.attack(i);
+    calculateWinner();
+    nextTurn();
+  }
+
   const handleTurn = (i) => {
-    player0.attack(i);
-    nextTurn();
-    player1.attack();
-    nextTurn();
+    makeTurn(i);
+    makeTurn();
 
     return {
       gameboard0,
@@ -25,6 +37,7 @@ const Game = () => {
       player0,
       player1,
       handleTurn,
+      winner
     };
   };
 
@@ -34,6 +47,7 @@ const Game = () => {
     player0,
     player1,
     handleTurn,
+    winner
   };
 };
 

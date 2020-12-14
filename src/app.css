@@ -1,9 +1,14 @@
 .head {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
 }
 
 .display-boards {
   display: flex;
+  justify-content: space-around;
 }
 
 .board-grid {
@@ -30,7 +35,7 @@
   cursor: initial;
 }
 
-.ship {
+.my-board .ship {
   background-color: blue;
 }
 

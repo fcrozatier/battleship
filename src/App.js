@@ -18,7 +18,6 @@ function App() {
           <Board
             cells={game.gameboard0.board}
             hits={game.gameboard0.hits}
-            own
           />
         </div>
         <div className="enemy-board">

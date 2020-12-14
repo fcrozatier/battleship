@@ -1,8 +1,8 @@
 import { GiNuclearBomb } from "react-icons/gi";
 
-function Cell({ value, hit, own, onClick }) {
+function Cell({ value, hit, onClick }) {
   const base = hit ? "cell hit" : "cell";
-  const style = value && (own || hit) ? `${base} ship` : base; // show ship background except when not mine and not hit
+  const style = value ? `${base} ship` : base;
 
   return (
     <div className={style} onClick={onClick}>

@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-const Board = ({ cells, hits, own, onClick }) => {
+const Board = ({ cells, hits, onClick }) => {
   return (
     <div className="board-grid">
       {cells.map((cell, i) => {
@@ -8,7 +8,6 @@ const Board = ({ cells, hits, own, onClick }) => {
           <Cell
             key={i}
             value={cell !== 0}
-            own={own ? true : false}
             hit={hits.includes(i)}
             onClick={() => {
               if (onClick) {

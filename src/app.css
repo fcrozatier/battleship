@@ -8,11 +8,12 @@
 
 .display-boards {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .board-grid {
   display: grid;
+  width: 411px;
   grid-template: repeat(10, 40px) / repeat(10, 40px);
   border: 1px solid #8c9885;
   background-color: #8c9885;
@@ -55,4 +56,11 @@
   text-align: center;
   height: 30px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 960px) {
+  .display-boards {
+    flex-direction: column;
+    align-items: center;
+  }
 }

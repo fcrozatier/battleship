@@ -74,9 +74,7 @@ export const Gameboard = (size = 10) => {
 
   const receiveAttack = (index) => {
     const ship = board[index];
-    if (ship === 0) {
-      missed.push(index);
-    } else {
+    if (ship !== 0) {
       ship.hit();
     }
     hits.push(index);
@@ -85,6 +83,10 @@ export const Gameboard = (size = 10) => {
   const fleetSunk = () => {
     return fleet.every((ship) => ship.isSunk());
   };
+
+  const shipsLeft = () => {
+    return fleet.reduce((partial, current) => partial - current.isSunk(), fleet.length);
+  }
 
   // default config
   if (size === 10) {
@@ -109,5 +111,6 @@ export const Gameboard = (size = 10) => {
     position,
     receiveAttack,
     size,
+    shipsLeft,
   };
 };

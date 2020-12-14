@@ -14,14 +14,14 @@
 .board-grid {
   display: grid;
   grid-template: repeat(10, 40px) / repeat(10, 40px);
-  border: 1px solid black;
-  background-color: #000;
+  border: 1px solid #8c9885;
+  background-color: #8c9885;
   gap: 1px;
   justify-content: center;
 }
 
 .cell {
-  background-color: #fff;
+  background-color: var(--bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,11 +36,11 @@
 }
 
 .my-board .ship {
-  background-color: blue;
+  background-color: #74bac1;
 }
 
 .ship.hit {
-  background-color: red;
+  background-color: #e06d6d;
 }
 
 .info {

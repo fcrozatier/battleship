@@ -1,3 +1,7 @@
+:root {
+  --bg: rgb(245 251 255);
+}
+
 html {
   box-sizing: border-box;
 }
@@ -10,7 +14,6 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Montserrat, sans-serif;
+  background-color: var(--bg);
 }

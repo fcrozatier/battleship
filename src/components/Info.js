@@ -5,7 +5,7 @@ const Info = ({ winner }) => {
   if (winner) {
     content = winner.isBot ? `Computer wins!` : "You win!";
   }
-  return <div class="info-winner">{content}</div>;
+  return <div className="info-winner">{content}</div>;
 };
 
 export default Info;

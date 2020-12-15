@@ -5,7 +5,11 @@ function Cell({ value, hit, onClick }) {
   const style = value ? `${base} ship` : base;
 
   return (
-    <div className={style} onClick={onClick}>
+    <div
+      className={style}
+      onClick={onClick}
+      draggable={value ? true : false}
+    >
       {hit && <GiNuclearBomb />}
     </div>
   );

@@ -11,12 +11,12 @@ export const Player = (ai) => {
 
   const attackPosition = (player, index) => {
     player.gameboard.receiveAttack(index);
-    return player.gameboard;
   };
 
   const attack = (player, index) => {
     const i = isBot ? Math.floor(Math.random() * 100) : index;
     if (validAttack(player, i)) attackPosition(player, i);
+    return player;
   };
 
   const hasLost = () => {

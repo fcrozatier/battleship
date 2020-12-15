@@ -1,21 +1,20 @@
 export const Player = (enemy_board, ai) => {
   const gameboard = enemy_board;
   const isBot = ai;
-  const name = ai ? 'Computer' : 'You';
+  const name = ai ? "Computer" : "You";
+
+  const validAttack = (index) => {
+    return !gameboard.hits.includes(index);
+  };
 
   const attackPosition = (index) => {
-    if (!gameboard.hits.includes(index)) {
-      gameboard.receiveAttack(index);
-    }
+    gameboard.receiveAttack(index);
     return gameboard;
   };
 
   const attack = (index) => {
-    let i = index;
-    if (isBot) {
-      i = Math.floor(Math.random() * gameboard.size ** 2);
-    }
-    return attackPosition(i);
+    const i = isBot ? Math.floor(Math.random() * gameboard.size ** 2) : index;
+    if(validAttack(i)) attackPosition(i);
   };
 
   const isWinner = () => {
@@ -28,5 +27,6 @@ export const Player = (enemy_board, ai) => {
     isWinner,
     gameboard,
     name,
+    validAttack,
   };
 };

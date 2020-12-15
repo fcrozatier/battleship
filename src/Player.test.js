@@ -3,36 +3,42 @@ import { Gameboard } from "./Gameboard";
 import { Ship } from "./Ship";
 
 test("attack position", () => {
-  const gameboard = Gameboard(2);
-  const bot = Player(gameboard, true);
-  bot.attack();
-  expect(gameboard.hits.length).toBe(1);
+  const bot = Player(true);
+  const human = Player(false);
+  bot.attack(human, 0);
+  expect(human.gameboard.hits.length).toBe(1);
+
+  human.attack(bot, 10);
+  expect(bot.gameboard.hits.length).toBe(1);
 });
 
-test("internal gameboard changes", () => {
-  const gameboard = Gameboard(2);
-  const player = Player(gameboard, false);
-  expect(player.gameboard.hits).toEqual([]);
-  player.attack(1);
-  expect(player.gameboard.hits).toEqual([1]);
+test("track hits", () => {
+  const bot = Player(true);
+  const human = Player(false);
+  expect(human.gameboard.hits).toEqual([]);
+
+  human.attack(bot, 11);
+  human.attack(bot, 13);
+  human.attack(bot, 17);
+  expect(bot.gameboard.hits).toEqual([11, 13, 17]);
 });
 
 test("can't attack same position twice", () => {
-  const gameboard = Gameboard(2);
-  const player = Player(gameboard, false);
-  player.attack(1);
-  player.attack(1);
-  expect(gameboard.hits.length).toBe(1);
+  const bot = Player(true);
+  const human = Player(false);
+
+  human.attack(bot, 51);
+  human.attack(bot, 51);
+  expect(bot.gameboard.hits.length).toBe(1);
 });
 
-test("wins if the fleet is sunk", () => {
-  const gameboard = Gameboard(2);
-  const ship = Ship(1);
-  gameboard.position(1, 2, ship);
-  const player = Player(gameboard, false);
-  expect(player.isWinner()).toBeFalsy();
-  player.attack(0);
-  expect(player.isWinner()).toBeFalsy();
-  player.attack(1);
-  expect(player.isWinner()).toBeTruthy();
+test("loses when the fleet is sunk", () => {
+  const bot = Player(true);
+  const human = Player(false);
+
+  expect(bot.hasLost()).toBeFalsy();
+  for (let i = 0; i < 100; i++) {
+    human.attack(bot, i);
+  }
+  expect(bot.hasLost()).toBeTruthy();
 });

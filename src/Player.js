@@ -1,30 +1,32 @@
-export const Player = (enemy_board, ai) => {
-  const gameboard = enemy_board;
+import { Gameboard } from "./Gameboard";
+
+export const Player = (ai) => {
+  const gameboard = Gameboard();
   const isBot = ai;
   const name = ai ? "Computer" : "You";
 
-  const validAttack = (index) => {
-    return !gameboard.hits.includes(index);
+  const validAttack = (player, index) => {
+    return !player.gameboard.hits.includes(index);
   };
 
-  const attackPosition = (index) => {
-    gameboard.receiveAttack(index);
-    return gameboard;
+  const attackPosition = (player, index) => {
+    player.gameboard.receiveAttack(index);
+    return player.gameboard;
   };
 
-  const attack = (index) => {
-    const i = isBot ? Math.floor(Math.random() * gameboard.size ** 2) : index;
-    if(validAttack(i)) attackPosition(i);
+  const attack = (player, index) => {
+    const i = isBot ? Math.floor(Math.random() * 100) : index;
+    if (validAttack(player, i)) attackPosition(player, i);
   };
 
-  const isWinner = () => {
+  const hasLost = () => {
     return gameboard.fleetSunk();
   };
 
   return {
     attack,
     isBot,
-    isWinner,
+    hasLost,
     gameboard,
     name,
     validAttack,

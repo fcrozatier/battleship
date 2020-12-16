@@ -3,7 +3,6 @@ import { Ship } from "./Ship";
 export const Gameboard = (size = 10) => {
   const board = Array(size * size).fill(0);
   const fleet = [];
-  const missed = [];
   const hits = [];
 
   const position = (x, y, ship, v = false) => {
@@ -107,7 +106,6 @@ export const Gameboard = (size = 10) => {
     board,
     fleetSunk,
     hits,
-    missed,
     position,
     receiveAttack,
     size,

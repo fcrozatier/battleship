@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Board from './components/Board';
-// import useGame from './useGame';
 import './app.css';
-// import Info from './components/Info';
 import Player from './Player';
 
 function App() {
-  const human = Player(false);
+  let botPass = false;
+
+  const [human, setHuman] = useState(Player(false));
   const [bot, setBot] = useState(Player(true));
-  const myBoard = human.gameboard;
-  const aiBord = bot.gameboard;
 
   const handleClick = (index) => {
-    setBot((prev) => human.attack(prev, index));
+    botPass = !human.validAttack(bot, index);
+    setBot({ ...bot, gameboard: human.attack(bot, index) });
+    setHuman({ ...human, gameboard: bot.attack(human, botPass) });
   };
 
   return (
@@ -21,23 +21,23 @@ function App() {
       {/* <Info winner={winner} /> */}
       <div className="display-boards">
         <div className="my-board">
-          <Board cells={myBoard.board} hits={myBoard.hits} />
+          <Board cells={human.gameboard.board} hits={human.gameboard.hits} />
           <div className="info">
             Ships left:
             {' '}
-            {myBoard.shipsLeft()}
+            {human.gameboard.shipsLeft()}
           </div>
         </div>
         <div className="enemy-board">
           <Board
             cells={bot.gameboard.board}
-            hits={aiBord.hits}
+            hits={bot.gameboard.hits}
             onClick={handleClick}
           />
           <div className="info">
             Ships left:
             {' '}
-            {aiBord.shipsLeft()}
+            {bot.gameboard.shipsLeft()}
           </div>
         </div>
       </div>

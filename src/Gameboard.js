@@ -75,6 +75,7 @@ export default (size = 10) => {
       ship.hit();
     }
     hits.push(index);
+    return hits;
   };
 
   const fleetSunk = () => fleet.every((ship) => ship.isSunk());

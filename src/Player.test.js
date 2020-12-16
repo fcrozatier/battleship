@@ -30,6 +30,15 @@ test("can't attack same position twice", () => {
   expect(bot.gameboard.hits).toHaveLength(1);
 });
 
+test('can pass', () => {
+  const bot = Player(true);
+  const human = Player(false);
+
+  bot.attack(human);
+  bot.attack(human, true);
+  expect(human.gameboard.hits).toHaveLength(1);
+});
+
 test('loses when the fleet is sunk', () => {
   const bot = Player(true);
   const human = Player(false);

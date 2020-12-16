@@ -1,18 +1,11 @@
-import { Ship } from "./Ship";
+import Ship from './Ship';
 
-export const Gameboard = (size = 10) => {
+export default (size = 10) => {
   const board = Array(size * size).fill(0);
   const fleet = [];
   const hits = [];
 
-  const position = (x, y, ship, v = false) => {
-    fleet.push(ship);
-    return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
-  };
-
-  const toIdx = (x, y) => {
-    return (x - 1) * size - 1 + y;
-  };
+  const toIdx = (x, y) => (x - 1) * size - 1 + y;
 
   const targetHIdx = (x, y, length) => {
     const startIdx = toIdx(x, y);
@@ -35,7 +28,7 @@ export const Gameboard = (size = 10) => {
       return false;
     }
 
-    for (let i = startIdx; i < startIdx + shipSize; i++) {
+    for (let i = startIdx; i < startIdx + shipSize; i += 1) {
       board[i] = ship;
     }
 
@@ -60,8 +53,8 @@ export const Gameboard = (size = 10) => {
 
     // Check positions are free
     for (let i = start; i <= end; i += size) {
-      if(board[i] !== 0){
-        return false
+      if (board[i] !== 0) {
+        return false;
       }
     }
 
@@ -69,6 +62,11 @@ export const Gameboard = (size = 10) => {
       board[i] = ship;
     }
     return true;
+  };
+
+  const position = (x, y, ship, v = false) => {
+    fleet.push(ship);
+    return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
   };
 
   const receiveAttack = (index) => {
@@ -79,13 +77,10 @@ export const Gameboard = (size = 10) => {
     hits.push(index);
   };
 
-  const fleetSunk = () => {
-    return fleet.every((ship) => ship.isSunk());
-  };
+  const fleetSunk = () => fleet.every((ship) => ship.isSunk());
 
-  const shipsLeft = () => {
-    return fleet.reduce((partial, current) => partial - current.isSunk(), fleet.length);
-  }
+  const shipsLeft = () => fleet
+    .reduce((partial, current) => partial - current.isSunk(), fleet.length);
 
   // default config
   if (size === 10) {

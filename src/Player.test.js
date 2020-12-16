@@ -1,16 +1,16 @@
-import { Player } from "./Player";
+import Player from './Player';
 
-test("attack position", () => {
+test('attack position', () => {
   const bot = Player(true);
   const human = Player(false);
   bot.attack(human, 0);
-  expect(human.gameboard.hits.length).toBe(1);
+  expect(human.gameboard.hits).toHaveLength(1);
 
   human.attack(bot, 10);
-  expect(bot.gameboard.hits.length).toBe(1);
+  expect(bot.gameboard.hits).toHaveLength(1);
 });
 
-test("track hits", () => {
+test('track hits', () => {
   const bot = Player(true);
   const human = Player(false);
   expect(human.gameboard.hits).toEqual([]);
@@ -27,15 +27,15 @@ test("can't attack same position twice", () => {
 
   human.attack(bot, 51);
   human.attack(bot, 51);
-  expect(bot.gameboard.hits.length).toBe(1);
+  expect(bot.gameboard.hits).toHaveLength(1);
 });
 
-test("loses when the fleet is sunk", () => {
+test('loses when the fleet is sunk', () => {
   const bot = Player(true);
   const human = Player(false);
 
   expect(bot.hasLost()).toBeFalsy();
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i += 1) {
     human.attack(bot, i);
   }
   expect(bot.hasLost()).toBeTruthy();

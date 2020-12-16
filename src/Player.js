@@ -1,13 +1,11 @@
-import { Gameboard } from "./Gameboard";
+import Gameboard from './Gameboard';
 
-export const Player = (ai) => {
+export default (ai) => {
   const gameboard = Gameboard();
   const isBot = ai;
-  const name = ai ? "Computer" : "You";
+  const name = ai ? 'Computer' : 'You';
 
-  const validAttack = (player, index) => {
-    return !player.gameboard.hits.includes(index);
-  };
+  const validAttack = (player, index) => !player.gameboard.hits.includes(index);
 
   const attackPosition = (player, index) => {
     player.gameboard.receiveAttack(index);
@@ -19,9 +17,7 @@ export const Player = (ai) => {
     return player;
   };
 
-  const hasLost = () => {
-    return gameboard.fleetSunk();
-  };
+  const hasLost = () => gameboard.fleetSunk();
 
   return {
     attack,

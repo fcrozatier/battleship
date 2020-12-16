@@ -1,13 +1,13 @@
-import { Gameboard } from "./Gameboard";
-import { Ship } from "./Ship";
+import Gameboard from './Gameboard';
+import Ship from './Ship';
 
-test("create an empty board", () => {
+test('create an empty board', () => {
   expect(Gameboard(2).board.length).toBe(4);
-  expect(Gameboard(2).board).not.toEqual(["", 0, 0, 0]);
+  expect(Gameboard(2).board).not.toEqual(['', 0, 0, 0]);
   expect(Gameboard(2).board).toEqual([0, 0, 0, 0]);
 });
 
-test("position ships horizontally", () => {
+test('position ships horizontally', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(1);
   expect(gameboard.position(1, 2, ship)).toBeTruthy();
@@ -19,7 +19,7 @@ test("position ships horizontally", () => {
   expect(gameboard2.board).toEqual([0, 0, ship2, ship2]);
 });
 
-test("position ships vertically", () => {
+test('position ships vertically', () => {
   const gameboard = Gameboard(3);
   const ship = Ship(2);
   expect(gameboard.position(2, 2, ship, true)).toBeTruthy();
@@ -30,7 +30,7 @@ test("position ships vertically", () => {
   expect(gameboard.board).toEqual(endBoard);
 });
 
-test("cannot position outside grid", () => {
+test('cannot position outside grid', () => {
   const gameboard = Gameboard(1);
   const ship = Ship(1);
   expect(gameboard.position(1, 2, ship)).toBeFalsy();
@@ -40,7 +40,7 @@ test("cannot position outside grid", () => {
   expect(gameboard.board).not.toEqual([0, ship]);
 });
 
-test("cannot wrap position", () => {
+test('cannot wrap position', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(1, 2, ship);
@@ -61,7 +61,7 @@ test("can't overlap ships", () => {
   expect(gameboard.position(1, 1, ship2, true)).toBeFalsy();
 });
 
-test("receive attack", () => {
+test('receive attack', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, 1, ship);
@@ -77,7 +77,7 @@ test("receive attack", () => {
   expect(ship.isSunk()).toBeTruthy();
 });
 
-test("fleet sunk", () => {
+test('fleet sunk', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, 1, ship);
@@ -99,4 +99,4 @@ test('ships left', () => {
   expect(gameboard.shipsLeft()).toBe(1);
   gameboard.receiveAttack(1);
   expect(gameboard.shipsLeft()).toBe(0);
-})
+});

@@ -1,10 +1,10 @@
-import { Ship } from "./Ship";
+import Ship from './Ship';
 
-test("creates a ship of given length", () => {
-  expect(Ship(3)).toHaveProperty("length", 3);
+test('creates a ship of given length', () => {
+  expect(Ship(3)).toHaveProperty('length', 3);
 });
 
-test('a ship sunks when it is hit too many times', ()=> {
+test('a ship sunks when it is hit too many times', () => {
   const ship = Ship(4);
   ship.hit();
   ship.hit();
@@ -12,10 +12,10 @@ test('a ship sunks when it is hit too many times', ()=> {
   expect(ship.isSunk()).toBe(false);
   ship.hit();
   expect(ship.isSunk()).toBe(true);
-})
+});
 
-test('ships are not equal', ()=> {
+test('ships are not equal', () => {
   const ship1 = Ship(2);
   const ship2 = Ship(2);
   expect(ship1).not.toEqual(ship2);
-})
+});

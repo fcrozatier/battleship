@@ -2,25 +2,17 @@ import { useState } from 'react';
 import Player from './Player';
 
 const useGame = () => {
+  let botPass = false;
+
   const [human, setHuman] = useState(Player(false));
   const [bot, setBot] = useState(Player(true));
-  // let playerTurn = human;
+
   let winner;
 
-  // const nextTurn = () => {
-  //   playerTurn = playerTurn === human ? bot : human;
-  // };
-
-  // const calculateWinner = () => {
-  //   const player = playerTurn;
-  //   if (player.gameboard.fleetSunk()) {
-  //     winner = player;
-  //   }
-  // };
-
   const setGame = (index) => {
-    setBot((prevBot) => human.attack(prevBot, index));
-    setHuman(human);
+    botPass = !human.validAttack(bot, index);
+    setBot({ ...bot, gameboard: human.attack(bot, index) });
+    setHuman({ ...human, gameboard: bot.attack(human, botPass) });
   };
 
   return [

@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Board from './components/Board';
 import './app.css';
-import Player from './Player';
+import useGame from './useGame';
 
 function App() {
-  let botPass = false;
-
-  const [human, setHuman] = useState(Player(false));
-  const [bot, setBot] = useState(Player(true));
+  const [{ bot, human }, setGame] = useGame();
 
   const handleClick = (index) => {
-    botPass = !human.validAttack(bot, index);
-    setBot({ ...bot, gameboard: human.attack(bot, index) });
-    setHuman({ ...human, gameboard: bot.attack(human, botPass) });
+    setGame(index);
   };
 
   return (
@@ -24,7 +19,6 @@ function App() {
           <Board cells={human.gameboard.board} hits={human.gameboard.hits} />
           <div className="info">
             Ships left:
-            {' '}
             {human.gameboard.shipsLeft()}
           </div>
         </div>
@@ -36,7 +30,6 @@ function App() {
           />
           <div className="info">
             Ships left:
-            {' '}
             {bot.gameboard.shipsLeft()}
           </div>
         </div>

@@ -23,12 +23,13 @@ const Board = ({ cells, hits, onClick }) => (
 Board.propTypes = {
   cells: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-  ).isRequired,
+  ),
   hits: PropTypes.arrayOf(PropTypes.number),
   onClick: PropTypes.func,
 };
 
 Board.defaultProps = {
+  cells: [],
   hits: [],
   onClick: () => {},
 };

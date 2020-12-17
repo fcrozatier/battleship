@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Player from '../modules/Player';
 
 const Info = ({ winner }) => {
   let content = '';
@@ -11,7 +10,7 @@ const Info = ({ winner }) => {
 };
 
 Info.propTypes = {
-  winner: PropTypes.oneOfType([PropTypes.instanceOf(Player), PropTypes.bool]),
+  winner: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 Info.defaultProps = {

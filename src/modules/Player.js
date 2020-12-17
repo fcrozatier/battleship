@@ -18,23 +18,24 @@ export default (ai) => {
       i = Math.floor(Math.random() * 100);
     } while (!validAttack(player, i));
 
-    attackPosition(player, i);
-    return player.gameboard;
-  };
-
-  const attack = (player, ...opts) => {
-    if (isBot) {
-      return AIAttack(player, opts[0]);
-    }
-
-    const humanPass = opts[1] ? opts[1] : false;
-    if (!humanPass && validAttack(player, opts[0])) {
-      attackPosition(player, opts[0]);
-    }
-    return player.gameboard;
+    return attackPosition(player, i);
   };
 
   const hasLost = () => gameboard.fleetSunk();
+
+  const attack = (player, ...opts) => {
+    if (hasLost()) return player.gameboard;
+
+    if (isBot) {
+      AIAttack(player, opts[0]);
+    } else {
+      const humanPass = opts[1] ? opts[1] : false;
+      if (!humanPass && validAttack(player, opts[0])) {
+        attackPosition(player, opts[0]);
+      }
+    }
+    return player.gameboard;
+  };
 
   return {
     attack,

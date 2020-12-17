@@ -5,7 +5,8 @@ import useGame from './modules/useGame';
 import './app.css';
 
 function App() {
-  const [{ bot, human, winner }, setGame] = useGame();
+  const [{ bot, human, calculateWinner }, setGame] = useGame();
+  const winner = calculateWinner();
 
   const handleClick = (index) => {
     setGame(index);

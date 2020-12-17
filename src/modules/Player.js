@@ -22,13 +22,14 @@ export default (ai) => {
     return player.gameboard;
   };
 
-  const attack = (player, opt = false) => {
+  const attack = (player, ...opts) => {
     if (isBot) {
-      return AIAttack(player, opt);
+      return AIAttack(player, opts[0]);
     }
 
-    if (validAttack(player, opt)) {
-      attackPosition(player, opt);
+    const humanPass = opts.length === 2 ? opts[1] : false;
+    if (!humanPass && validAttack(player, opts[0])) {
+      attackPosition(player, opts[0]);
     }
     return player.gameboard;
   };

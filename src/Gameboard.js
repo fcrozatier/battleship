@@ -80,8 +80,10 @@ export default (size = 10) => {
 
   const fleetSunk = () => fleet.every((ship) => ship.isSunk());
 
-  const shipsLeft = () => fleet
-    .reduce((partial, current) => partial - current.isSunk(), fleet.length);
+  const shipsLeft = () => fleet.reduce(
+    (partial, current) => partial - current.isSunk(),
+    fleet.length,
+  );
 
   // default config
   if (size === 10) {

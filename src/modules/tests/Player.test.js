@@ -1,4 +1,4 @@
-import Player from './Player';
+import Player from '../Player';
 
 test('attack position', () => {
   const bot = Player(true);

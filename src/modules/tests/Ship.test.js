@@ -1,4 +1,4 @@
-import Ship from './Ship';
+import Ship from '../Ship';
 
 test('creates a ship of given length', () => {
   expect(Ship(3)).toHaveProperty('length', 3);

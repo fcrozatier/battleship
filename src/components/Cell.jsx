@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GiNuclearBomb } from 'react-icons/gi';
-import Ship from '../Ship';
+import Ship from '../modules/Ship';
 
 function Cell({ value, hit, onClick }) {
   const base = hit ? 'cell hit' : 'cell';

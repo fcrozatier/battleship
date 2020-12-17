@@ -1,8 +1,8 @@
-import Gameboard from './Gameboard';
-import Ship from './Ship';
+import Gameboard from '../Gameboard';
+import Ship from '../Ship';
 
 test('create an empty board', () => {
-  expect(Gameboard(2).board.length).toBe(4);
+  expect(Gameboard(2).board).toHaveLength(4);
   expect(Gameboard(2).board).not.toEqual(['', 0, 0, 0]);
   expect(Gameboard(2).board).toEqual([0, 0, 0, 0]);
 });

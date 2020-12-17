@@ -1,7 +1,7 @@
 import React from 'react';
 import Board from './components/Board';
 import './app.css';
-import useGame from './useGame';
+import useGame from './modules/useGame';
 
 function App() {
   const [{ bot, human }, setGame] = useGame();

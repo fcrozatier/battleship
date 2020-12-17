@@ -36,11 +36,13 @@ test('can pass', () => {
 
   bot.attack(human);
   bot.attack(human, true);
-  expect(human.gameboard.hits).toHaveLength(1);
+  bot.attack(human, false);
+  expect(human.gameboard.hits).toHaveLength(2);
 
   human.attack(bot, 10);
   human.attack(bot, 11, true);
-  expect(bot.gameboard.hits).toHaveLength(1);
+  human.attack(bot, 12, false);
+  expect(bot.gameboard.hits).toHaveLength(2);
 });
 
 test('loses when the fleet is sunk', () => {

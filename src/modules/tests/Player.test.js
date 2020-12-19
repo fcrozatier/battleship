@@ -1,5 +1,15 @@
 import Player from '../Player';
 
+test('create Player', () => {
+  const bot = Player(true);
+  const human = Player(false);
+  expect(bot.gameboard.fleet).toHaveLength(5);
+  expect(human.gameboard.fleet).toHaveLength(5);
+  expect(bot.name).toBe('AI');
+  expect(human.name).toBe('Human');
+  expect(bot.hasLost()).toBeFalsy();
+});
+
 test('attack position', () => {
   const bot = Player(true);
   const human = Player(false);

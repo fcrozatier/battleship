@@ -10,19 +10,19 @@ test('create an empty board', () => {
 test('position ships horizontally', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(1);
-  expect(gameboard.position(1, 2, ship)).toBeTruthy();
+  expect(gameboard.position(1, ship)).toBeTruthy();
   expect(gameboard.board).toEqual([0, ship, 0, 0]);
 
   const gameboard2 = Gameboard(2);
   const ship2 = Ship(2);
-  gameboard2.position(2, 1, ship2);
+  gameboard2.position(2, ship2);
   expect(gameboard2.board).toEqual([0, 0, ship2, ship2]);
 });
 
 test('position ships vertically', () => {
   const gameboard = Gameboard(3);
   const ship = Ship(2);
-  expect(gameboard.position(2, 2, ship, true)).toBeTruthy();
+  expect(gameboard.position(4, ship, true)).toBeTruthy();
 
   const endBoard = Array(9).fill(0);
   endBoard[4] = ship;
@@ -33,38 +33,41 @@ test('position ships vertically', () => {
 test('cannot position outside grid', () => {
   const gameboard = Gameboard(1);
   const ship = Ship(1);
-  expect(gameboard.position(1, 2, ship)).toBeFalsy();
+  expect(gameboard.position(1, ship)).toBeFalsy();
   expect(gameboard.board).not.toEqual([0, ship]);
+  expect(gameboard.fleet).toHaveLength(0);
 
-  expect(gameboard.position(2, 1, ship, true)).toBeFalsy();
+  expect(gameboard.position(1, ship, true)).toBeFalsy();
   expect(gameboard.board).not.toEqual([0, ship]);
+  expect(gameboard.fleet).toHaveLength(0);
 });
 
 test('cannot wrap position', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
-  gameboard.position(1, 2, ship);
+  gameboard.position(1, ship);
   expect(gameboard.board).not.toEqual([0, ship, ship, 0]);
   expect(gameboard.board).toEqual([0, 0, 0, 0]);
+  expect(gameboard.fleet).toHaveLength(0);
 
-  const ship2 = Ship(3);
-  expect(gameboard.position(1, 1, ship2)).toBeFalsy();
+  expect(gameboard.position(2, ship, true)).toBeFalsy();
   expect(gameboard.board).toEqual([0, 0, 0, 0]);
+  expect(gameboard.fleet).toHaveLength(0);
 });
 
 test("can't overlap ships", () => {
   const gameboard = Gameboard(2);
   const ship1 = Ship(2);
   const ship2 = Ship(2);
-  gameboard.position(1, 1, ship1);
-  expect(gameboard.position(1, 1, ship2)).toBeFalsy();
-  expect(gameboard.position(1, 1, ship2, true)).toBeFalsy();
+  gameboard.position(0, ship1);
+  expect(gameboard.position(0, ship2)).toBeFalsy();
+  expect(gameboard.position(0, ship2, true)).toBeFalsy();
 });
 
 test('receive attack', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
-  gameboard.position(2, 1, ship);
+  gameboard.position(2, ship);
   gameboard.receiveAttack(0);
   expect(gameboard.hits).toEqual([0]);
 
@@ -80,20 +83,25 @@ test('receive attack', () => {
 test('fleet sunk', () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
-  gameboard.position(2, 1, ship);
+  gameboard.position(2, ship);
+
   expect(gameboard.fleetSunk()).toBeFalsy();
   gameboard.receiveAttack(2);
   expect(gameboard.fleetSunk()).toBeFalsy();
   gameboard.receiveAttack(3);
   expect(gameboard.fleetSunk()).toBeTruthy();
+
+  const gameboard2 = Gameboard();
+  expect(gameboard2.fleetSunk()).toBeFalsy();
 });
 
 test('ships left', () => {
   const gameboard = Gameboard(2);
   const ship1 = Ship(1);
   const ship2 = Ship(1);
-  gameboard.position(1, 1, ship1);
-  gameboard.position(1, 2, ship2);
+  gameboard.position(0, ship1);
+  gameboard.position(1, ship2);
+
   expect(gameboard.shipsLeft()).toBe(2);
   gameboard.receiveAttack(0);
   expect(gameboard.shipsLeft()).toBe(1);

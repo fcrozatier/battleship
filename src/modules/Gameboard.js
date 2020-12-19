@@ -5,68 +5,55 @@ export default (size = 10) => {
   const fleet = [];
   const hits = [];
 
-  const toIdx = (x, y) => (x - 1) * size - 1 + y;
+  const hPositionning = (index, ship) => {
+    const endIdx = index + ship.length - 1;
 
-  const targetHIdx = (x, y, length) => {
-    const startIdx = toIdx(x, y);
-    const endIdx = startIdx + length - 1;
+    // Cannot position outside grid
+    if (endIdx >= size ** 2) return false;
 
-    return [startIdx, endIdx];
-  };
-
-  const hPositionning = (x, y, ship) => {
-    const shipSize = ship.length;
-    const [startIdx, endIdx] = targetHIdx(x, y, shipSize);
-
-    // Cannot position outside grid nor wrap
-    if (endIdx >= x * size) {
-      return false;
-    }
+    // Cannot wrap
+    if (Math.floor(index / size) !== Math.floor(endIdx / size)) return false;
 
     // Check positions are free
-    if (board.slice(startIdx, endIdx + 1).some((el) => el !== 0)) {
-      return false;
-    }
+    if (board.slice(index, endIdx + 1).some((el) => el !== 0)) return false;
 
-    for (let i = startIdx; i < startIdx + shipSize; i += 1) {
+    for (let i = index; i <= endIdx; i += 1) {
       board[i] = ship;
     }
-
     return true;
   };
 
-  const targetVIdx = (x, y, length) => {
-    const start = toIdx(x, y);
-    const end = start + (length - 1) * size;
-
-    return [start, end];
-  };
-
-  const vPositionning = (x, y, ship) => {
+  const vPositionning = (index, ship) => {
     const shipSize = ship.length;
-    const [start, end] = targetVIdx(x, y, shipSize);
+    const end = index + (shipSize - 1) * size;
 
     // Cannot position outside grid
-    if (end >= size * size - 1) {
+    if (end >= size ** 2) {
       return false;
     }
 
     // Check positions are free
-    for (let i = start; i <= end; i += size) {
+    for (let i = index; i <= end; i += size) {
       if (board[i] !== 0) {
         return false;
       }
     }
 
-    for (let i = start; i < start + shipSize * size; i += size) {
+    for (let i = index; i <= end; i += size) {
       board[i] = ship;
     }
     return true;
   };
 
-  const position = (x, y, ship, v = false) => {
-    fleet.push(ship);
-    return v ? vPositionning(x, y, ship) : hPositionning(x, y, ship);
+  const position = (index, ship, v = false) => {
+    if (
+      (v && vPositionning(index, ship))
+      || (!v && hPositionning(index, ship))
+    ) {
+      fleet.push(ship);
+      return true;
+    }
+    return false;
   };
 
   const receiveAttack = (index) => {
@@ -93,15 +80,16 @@ export default (size = 10) => {
     const submarine = Ship(3);
     const patrol = Ship(2);
 
-    position(3, 3, carrier, true);
-    position(1, 5, battleship);
-    position(6, 6, destroyer);
-    position(1, 2, submarine, true);
-    position(4, 7, patrol, true);
+    position(22, carrier, true);
+    position(4, battleship);
+    position(55, destroyer);
+    position(1, submarine, true);
+    position(36, patrol, true);
   }
 
   return {
     board,
+    fleet,
     fleetSunk,
     hits,
     position,

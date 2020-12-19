@@ -12,7 +12,7 @@ const useGame = () => {
   };
 
   const setGame = (index) => {
-    const botPass = (!human.validAttack(bot, index));
+    const botPass = !human.validAttack(bot, index);
     setBot({ ...bot, gameboard: human.attack(bot, index) });
     setHuman({ ...human, gameboard: bot.attack(human, botPass) });
   };

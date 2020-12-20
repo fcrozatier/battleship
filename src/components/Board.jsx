@@ -8,7 +8,7 @@ const Board = ({ cells, hits, onClick }) => (
       <Cell
         // eslint-disable-next-line react/no-array-index-key
         key={i}
-        value={cell !== 0}
+        value={cell}
         hit={hits.includes(i)}
         onClick={() => {
           if (onClick) {

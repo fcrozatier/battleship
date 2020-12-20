@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GiNuclearBomb } from 'react-icons/gi';
+import Ship from './Ship';
 
 function Cell({ value, hit, onClick }) {
-  const base = hit ? 'cell hit' : 'cell';
-  const style = value ? `${base} ship` : base;
+  const style = hit ? 'cell hit' : 'cell';
+  // const style = value !== 0 ? `${base} ship` : base;
 
   return (
     <div
@@ -13,9 +14,9 @@ function Cell({ value, hit, onClick }) {
       onKeyDown={onClick}
       role="button"
       tabIndex="-1"
-      draggable={!!value}
     >
-      {hit && <GiNuclearBomb />}
+      {value !== 0 && <Ship value={value} hit={hit} />}
+      {value === 0 && hit && <GiNuclearBomb />}
     </div>
   );
 }

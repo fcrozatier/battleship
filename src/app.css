@@ -37,11 +37,21 @@
   cursor: initial;
 }
 
+.ship {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .my-board .ship {
+  height: 100%;
+  width: 100%;
   background-color: #74bac1;
 }
 
-.ship.hit {
+.hit .ship {
+  height: 100%;
+  width: 100%;
   background-color: #e06d6d;
 }
 

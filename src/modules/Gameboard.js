@@ -24,7 +24,11 @@ export default (size = 10) => {
 
     // Check positions are free
     // TODO: NOT RELY ON .BOARD BUT .FLEET
-    if (board.slice(index, endIdx + 1).some((el) => el !== 0)) return false;
+    if (
+      board.slice(index, endIdx + 1).some((el) => el.id && el.id !== ship.id)
+    ) {
+      return false;
+    }
 
     return true;
   };
@@ -48,7 +52,7 @@ export default (size = 10) => {
     // Check positions are free
     // TODO: NOT RELY ON .BOARD BUT .FLEET
     for (let i = index; i <= end; i += size) {
-      if (board[i] !== 0) {
+      if (board[i].id && board[i].id !== ship.id) {
         return false;
       }
     }
@@ -76,8 +80,10 @@ export default (size = 10) => {
   const reposition = (index, id) => {
     const { ship, v } = fleet.find((unit) => unit.ship.id === id);
     // const vertical = v === undefined ? ship.v : v;
-    clearBoard(ship);
     if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
+      clearBoard(ship);
+      if (v) vPosition(index, ship);
+      if (!v) hPosition(index, ship);
       fleet.forEach((unit, idx) => {
         if (unit.ship.id === id) {
           fleet[idx].index = index;
@@ -85,6 +91,14 @@ export default (size = 10) => {
       });
       return board;
     }
+    // if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
+    //   fleet.forEach((unit, idx) => {
+    //     if (unit.ship.id === id) {
+    //       fleet[idx].index = index;
+    //     }
+    //   });
+    //   return board;
+    // }
     return board;
   };
 

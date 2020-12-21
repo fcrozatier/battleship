@@ -118,6 +118,16 @@ describe('gameboard', () => {
     expect(submarineUnit.index).toBe(11);
   });
 
+  test('reposition keeps verticality', () => {
+    const gameboard = Gameboard(2);
+    const ship = Ship(2, 'kanoe');
+    gameboard.position(0, ship, true);
+
+    gameboard.reposition(1, 'kanoe');
+    expect(gameboard.fleet[0].index).toBe(1);
+    expect(gameboard.fleet[0].v).toBeTruthy();
+  });
+
   test('receive attack', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(2);

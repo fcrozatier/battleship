@@ -67,9 +67,10 @@ export default (size = 10) => {
     return false;
   };
 
-  const reposition = (index, id, v = false) => {
-    const { ship } = fleet.find((unit) => unit.ship.id === id);
+  const reposition = (index, id) => {
+    const { ship, v } = fleet.find((unit) => unit.ship.id === id);
     clearBoard(ship);
+    // const vertical = v === undefined ? ship.v : v;
     if (
       (v && vPositionning(index, ship))
       || (!v && hPositionning(index, ship))
@@ -77,12 +78,11 @@ export default (size = 10) => {
       fleet.forEach((unit, idx) => {
         if (unit.ship.id === id) {
           fleet[idx].index = index;
-          fleet[idx].v = v;
         }
       });
-      return true;
+      return board;
     }
-    return false;
+    return board;
   };
 
   const receiveAttack = (index) => {

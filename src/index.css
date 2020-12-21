@@ -14,7 +14,8 @@ html {
 
 body {
   margin: 0;
-  font-family: Montserrat, sans-serif;
+  font-family: "VT323", monospace;
+  font-size: 30px;
   background-color: var(--bg);
 }
 

@@ -6,21 +6,38 @@ import Ship from './Ship';
 
 function Cell({
   // eslint-disable-next-line no-unused-vars
-  value, hit, onClick, onDrop,
+  value,
+  hit,
+  onClick,
+  onDrop,
+  // eslint-disable-next-line no-unused-vars
+  onCanDrop,
 }) {
-  const style = hit ? 'cell hit' : 'cell';
-
-  const [, drop] = useDrop({
+  const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'ship',
     drop: (item) => {
       onDrop(item.id);
     },
+    canDrop: (item) => onCanDrop(item.id),
+    collect: (monitor) => ({
+      canDrop: !!monitor.canDrop(),
+      isOver: !!monitor.isOver(),
+    }),
   });
 
+  const classes = hit ? 'cell hit' : 'cell';
+  // const dropStyle = isOver && canDrop ?
+  const style = {
+    backgroundColor: canDrop && 'rgb(248, 249, 231)',
+    border:
+      (isOver && canDrop && '1px solid green')
+      || (isOver && !canDrop && '1px solid red'),
+  };
   return (
     <div
       ref={drop}
-      className={style}
+      style={style}
+      className={classes}
       onClick={onClick}
       onKeyDown={onClick}
       role="button"
@@ -36,6 +53,7 @@ Cell.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   hit: PropTypes.bool,
   onClick: PropTypes.func,
+  onCanDrop: PropTypes.func,
   onDrop: PropTypes.func,
 };
 
@@ -44,6 +62,7 @@ Cell.defaultProps = {
   hit: false,
   onClick: () => {},
   onDrop: () => {},
+  onCanDrop: () => {},
 };
 
 export default Cell;

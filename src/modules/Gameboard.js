@@ -77,10 +77,16 @@ export default (size = 10) => {
     }
   };
 
+  const canReposition = (index, id) => {
+    const { ship, v } = fleet.find((unit) => unit.ship.id === id);
+    return (
+      (v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))
+    );
+  };
+
   const reposition = (index, id) => {
     const { ship, v } = fleet.find((unit) => unit.ship.id === id);
-    // const vertical = v === undefined ? ship.v : v;
-    if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
+    if (canReposition(index, id)) {
       clearBoard(ship);
       if (v) vPosition(index, ship);
       if (!v) hPosition(index, ship);
@@ -89,16 +95,8 @@ export default (size = 10) => {
           fleet[idx].index = index;
         }
       });
-      return board;
     }
-    // if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
-    //   fleet.forEach((unit, idx) => {
-    //     if (unit.ship.id === id) {
-    //       fleet[idx].index = index;
-    //     }
-    //   });
-    //   return board;
-    // }
+
     return board;
   };
 
@@ -136,6 +134,7 @@ export default (size = 10) => {
 
   return {
     board,
+    canReposition,
     fleet,
     fleetSunk,
     hits,

@@ -13,8 +13,7 @@ const Board = ({ fleet, hits, onClick }) => {
 
   const drawBoard = () => gameboard.board.map((cell, i) => (
     <Cell
-        // eslint-disable-next-line react/no-array-index-key
-      key={i}
+      key={Math.random() * 1000}
       value={cell}
       hit={hits.includes(i)}
       onClick={() => {
@@ -23,6 +22,7 @@ const Board = ({ fleet, hits, onClick }) => {
         }
       }}
       onDrop={(id) => handleDrop(i, id)}
+      onCanDrop={(id) => gameboard.canReposition(i, id)}
     />
   ));
 

@@ -72,7 +72,7 @@ describe('gameboard', () => {
     gameboard.position(0, ship);
     expect(gameboard.fleet[0].index).toBe(0);
 
-    gameboard.reposition(1, ship);
+    gameboard.reposition(1, 'kanoe');
     expect(gameboard.fleet).toHaveLength(1);
     expect(gameboard.fleet[0].index).toBe(1);
   });
@@ -84,7 +84,7 @@ describe('gameboard', () => {
     );
     expect(submarineUnit.index).toBe(1);
 
-    gameboard.reposition(0, submarineUnit.ship, true);
+    gameboard.reposition(0, 'submarine', true);
     expect(submarineUnit.index).toBe(0);
   });
 
@@ -94,7 +94,7 @@ describe('gameboard', () => {
       (unit) => unit.ship.id === 'submarine',
     );
 
-    gameboard.reposition(7, submarineUnit.ship);
+    gameboard.reposition(7, 'submarine');
     expect(submarineUnit.index).toBe(1);
   });
 
@@ -114,7 +114,7 @@ describe('gameboard', () => {
       (unit) => unit.ship.id === 'submarine',
     );
 
-    gameboard.reposition(11, submarineUnit.ship);
+    gameboard.reposition(11, 'submarine');
     expect(submarineUnit.index).toBe(11);
   });
 

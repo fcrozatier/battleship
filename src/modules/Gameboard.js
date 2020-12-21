@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import Ship from './Ship';
 
 export default (size = 10) => {
@@ -68,16 +67,17 @@ export default (size = 10) => {
     return false;
   };
 
-  const reposition = (index, ship, v = false) => {
+  const reposition = (index, id, v = false) => {
+    const { ship } = fleet.find((unit) => unit.ship.id === id);
     clearBoard(ship);
     if (
       (v && vPositionning(index, ship))
       || (!v && hPositionning(index, ship))
     ) {
-      fleet.forEach((unit) => {
-        if (unit.ship.id === ship.id) {
-          unit.index = index;
-          unit.v = v;
+      fleet.forEach((unit, idx) => {
+        if (unit.ship.id === id) {
+          fleet[idx].index = index;
+          fleet[idx].v = v;
         }
       });
       return true;

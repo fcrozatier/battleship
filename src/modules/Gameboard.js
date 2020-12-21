@@ -13,7 +13,7 @@ export default (size = 10) => {
     });
   };
 
-  const hPositionning = (index, ship) => {
+  const canHPosition = (index, ship) => {
     const endIdx = index + ship.length - 1;
 
     // Cannot position outside grid
@@ -26,15 +26,19 @@ export default (size = 10) => {
     // TODO: NOT RELY ON .BOARD BUT .FLEET
     if (board.slice(index, endIdx + 1).some((el) => el !== 0)) return false;
 
-    for (let i = index; i <= endIdx; i += 1) {
-      board[i] = ship;
-    }
     return true;
   };
 
-  const vPositionning = (index, ship) => {
-    const shipSize = ship.length;
-    const end = index + (shipSize - 1) * size;
+  const hPosition = (index, ship) => {
+    const endIdx = index + ship.length - 1;
+
+    for (let i = index; i <= endIdx; i += 1) {
+      board[i] = ship;
+    }
+  };
+
+  const canVPosition = (index, ship) => {
+    const end = index + (ship.length - 1) * size;
 
     // Cannot position outside grid
     if (end >= size ** 2) {
@@ -49,32 +53,31 @@ export default (size = 10) => {
       }
     }
 
-    for (let i = index; i <= end; i += size) {
-      board[i] = ship;
-    }
     return true;
   };
 
-  const position = (index, ship, v = false) => {
-    if (
-      (v && vPositionning(index, ship))
-      || (!v && hPositionning(index, ship))
-    ) {
-      fleet.push({ ship, index, v });
-
-      return true;
+  const vPosition = (index, ship) => {
+    const end = index + (ship.length - 1) * size;
+    for (let i = index; i <= end; i += size) {
+      board[i] = ship;
     }
-    return false;
+  };
+
+  const position = (index, ship, v = false) => {
+    if (v && canVPosition(index, ship)) {
+      vPosition(index, ship);
+      fleet.push({ ship, index, v });
+    } else if (!v && canHPosition(index, ship)) {
+      hPosition(index, ship);
+      fleet.push({ ship, index, v });
+    }
   };
 
   const reposition = (index, id) => {
     const { ship, v } = fleet.find((unit) => unit.ship.id === id);
-    clearBoard(ship);
     // const vertical = v === undefined ? ship.v : v;
-    if (
-      (v && vPositionning(index, ship))
-      || (!v && hPositionning(index, ship))
-    ) {
+    clearBoard(ship);
+    if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
       fleet.forEach((unit, idx) => {
         if (unit.ship.id === id) {
           fleet[idx].index = index;

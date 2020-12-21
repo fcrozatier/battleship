@@ -11,7 +11,7 @@ describe('gameboard', () => {
   test('position ships horizontally', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(1);
-    expect(gameboard.position(1, ship)).toBeTruthy();
+    gameboard.position(1, ship);
     expect(gameboard.board).toEqual([0, ship, 0, 0]);
 
     const gameboard2 = Gameboard(2);
@@ -24,7 +24,7 @@ describe('gameboard', () => {
   test('position ships vertically', () => {
     const gameboard = Gameboard(3);
     const ship = Ship(2);
-    expect(gameboard.position(4, ship, true)).toBeTruthy();
+    gameboard.position(4, ship, true);
 
     const endBoard = Array(9).fill(0);
     endBoard[4] = ship;

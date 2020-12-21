@@ -1,4 +1,4 @@
-export default (length) => {
+export default (length, id = Math.random() * 100) => {
   let hits = 0;
 
   const hit = () => {
@@ -8,6 +8,7 @@ export default (length) => {
   const isSunk = () => hits >= length;
 
   return {
+    id,
     isSunk,
     hit,
     hits,

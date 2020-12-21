@@ -1,12 +1,15 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
+import { useDrag } from 'react-dnd';
 import { GiNuclearBomb } from 'react-icons/gi';
 
 function Ship({ hit }) {
   const style = hit ? 'ship hit' : 'ship';
+  const [, drag] = useDrag({
+    item: { type: 'ship' },
 
-  // const item = value;
-  return <div className={style}>{hit && <GiNuclearBomb />}</div>;
+  });
+  return <div className={style} ref={drag}>{hit && <GiNuclearBomb />}</div>;
 }
 
 Ship.propTypes = {

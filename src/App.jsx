@@ -18,7 +18,7 @@ function App() {
       {winner && <Info winner={winner} />}
       <div className="display-boards">
         <div className="my-board">
-          <Board cells={human.gameboard.board} hits={human.gameboard.hits} />
+          <Board cells={human.gameboard.fleet} hits={human.gameboard.hits} />
           <div className="info">
             Ships left:
             {human.gameboard.shipsLeft()}
@@ -26,7 +26,7 @@ function App() {
         </div>
         <div className="enemy-board">
           <Board
-            cells={bot.gameboard.board}
+            cells={bot.gameboard.fleet}
             hits={bot.gameboard.hits}
             onClick={handleClick}
           />

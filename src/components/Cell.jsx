@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GiNuclearBomb } from 'react-icons/gi';
+import { useDrop } from 'react-dnd';
 import Ship from './Ship';
 
 function Cell({ value, hit, onClick }) {
   const style = hit ? 'cell hit' : 'cell';
-  // const style = value !== 0 ? `${base} ship` : base;
+
+  const [, drop] = useDrop({
+    accept: 'ship',
+    drop: () => {
+
+    },
+  });
 
   return (
     <div
+      ref={drop}
       className={style}
       onClick={onClick}
       onKeyDown={onClick}

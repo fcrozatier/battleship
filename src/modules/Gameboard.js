@@ -6,6 +6,14 @@ export default (size = 10) => {
   const hits = [];
   const fleet = [];
 
+  const clearBoard = (ship) => {
+    board.forEach((cell, index) => {
+      if (cell.id && cell.id === ship.id) {
+        board[index] = 0;
+      }
+    });
+  };
+
   const hPositionning = (index, ship) => {
     const endIdx = index + ship.length - 1;
 
@@ -61,12 +69,20 @@ export default (size = 10) => {
   };
 
   const reposition = (index, ship, v = false) => {
-    fleet.forEach((unit) => {
-      if (unit.ship.id === ship.id) {
-        unit.index = index;
-        unit.v = v;
-      }
-    });
+    clearBoard(ship);
+    if (
+      (v && vPositionning(index, ship))
+      || (!v && hPositionning(index, ship))
+    ) {
+      fleet.forEach((unit) => {
+        if (unit.ship.id === ship.id) {
+          unit.index = index;
+          unit.v = v;
+        }
+      });
+      return true;
+    }
+    return false;
   };
 
   const receiveAttack = (index) => {

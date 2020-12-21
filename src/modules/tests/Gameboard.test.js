@@ -66,7 +66,7 @@ describe('gameboard', () => {
     expect(gameboard.position(0, ship2, true)).toBeFalsy();
   });
 
-  test.only('can reposition ships', () => {
+  test('can reposition ships', () => {
     const gameboard = Gameboard(4);
     const ship = Ship(1, 'kanoe');
     gameboard.position(0, ship);
@@ -86,6 +86,36 @@ describe('gameboard', () => {
 
     gameboard.reposition(0, submarineUnit.ship, true);
     expect(submarineUnit.index).toBe(0);
+  });
+
+  test('cannot reposition over ships', () => {
+    const gameboard = Gameboard();
+    const submarineUnit = gameboard.fleet.find(
+      (unit) => unit.ship.id === 'submarine',
+    );
+
+    gameboard.reposition(7, submarineUnit.ship);
+    expect(submarineUnit.index).toBe(1);
+  });
+
+  // test.skip('clear board', () => {
+  //   const gameboard = Gameboard(2);
+  //   const ship = Ship(2, 'first');
+  //   const ship2 = Ship(2, 'second');
+  //   gameboard.position(0, ship);
+  //   gameboard.position(2, ship2);
+  //   gameboard.clearBoard(ship);
+  //   expect(gameboard.board.includes(ship)).toBeFalsy();
+  // });
+
+  test('can reposition over itself', () => {
+    const gameboard = Gameboard();
+    const submarineUnit = gameboard.fleet.find(
+      (unit) => unit.ship.id === 'submarine',
+    );
+
+    gameboard.reposition(11, submarineUnit.ship);
+    expect(submarineUnit.index).toBe(11);
   });
 
   test('receive attack', () => {

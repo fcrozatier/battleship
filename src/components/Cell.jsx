@@ -5,12 +5,10 @@ import { useDrop } from 'react-dnd';
 import Ship from './Ship';
 
 function Cell({
-  // eslint-disable-next-line no-unused-vars
   value,
   hit,
   onClick,
   onDrop,
-  // eslint-disable-next-line no-unused-vars
   onCanDrop,
 }) {
   const [{ canDrop, isOver }, drop] = useDrop({
@@ -26,7 +24,6 @@ function Cell({
   });
 
   const classes = hit ? 'cell hit' : 'cell';
-  // const dropStyle = isOver && canDrop ?
   const style = {
     backgroundColor: canDrop && 'rgb(248, 249, 231)',
     border:

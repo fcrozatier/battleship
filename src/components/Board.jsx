@@ -11,6 +11,11 @@ const Board = ({ fleet, hits, onClick }) => {
     setGameboard({ ...gameboard, board: gameboard.reposition(i, id) });
   };
 
+  // const createBoard = (list) => {
+  //   const cells = new Array(100).fill(0);
+  //   return list.forEach((unit) => { cells[unit.index] = unit.ship; });
+  // };
+
   const drawBoard = () => gameboard.board.map((cell, i) => (
     <Cell
       key={Math.random() * 1000}

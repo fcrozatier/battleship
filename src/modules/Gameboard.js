@@ -23,12 +23,50 @@ export default (size = 10) => {
     if (Math.floor(index / size) !== Math.floor(endIdx / size)) return false;
 
     // Check positions are free
-    // TODO: NOT RELY ON .BOARD BUT .FLEET
-    if (
-      board.slice(index, endIdx + 1).some((el) => el.id && el.id !== ship.id)
-    ) {
-      return false;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const unit of fleet) {
+      // for other horizontal, head or tail of ship should not end in their middle of these
+      if (unit.ship.id !== ship.id && !unit.v) {
+        if (unit.index <= index && unit.index + unit.ship.length - 1 >= index) {
+          return false;
+        }
+        if (
+          unit.index <= endIdx
+          && unit.index + unit.ship.length - 1 >= endIdx
+        ) {
+          return false;
+        }
+      } else if (unit.ship.id !== ship.id && unit.v) {
+        // for other vertical, their head modulo size should not be in the middle of ship
+        if (
+          unit.index <= index
+          && unit.index + (unit.ship.length - 1) * size >= index
+        ) {
+          if (
+            index % size <= unit.index % size
+            && endIdx % size >= unit.index % size
+          ) {
+            return false;
+          }
+        }
+        if (
+          unit.index <= endIdx
+          && unit.index + (unit.ship.length - 1) * size >= endIdx
+        ) {
+          if (
+            index % size <= unit.index % size
+            && endIdx % size >= unit.index % size
+          ) {
+            return false;
+          }
+        }
+      }
     }
+    // if (
+    //   board.slice(index, endIdx + 1).some((el) => el.id && el.id !== ship.id)
+    // ) {
+    //   return false;
+    // }
 
     return true;
   };
@@ -50,12 +88,52 @@ export default (size = 10) => {
     }
 
     // Check positions are free
-    // TODO: NOT RELY ON .BOARD BUT .FLEET
-    for (let i = index; i <= end; i += size) {
-      if (board[i].id && board[i].id !== ship.id) {
-        return false;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const unit of fleet) {
+      // for other vertical, should not be aligned with head of tail of ship in their middle
+      if (unit.ship.id !== ship.id && unit.v) {
+        if (unit.index % size === index % size) {
+          if (
+            unit.index <= index
+            && unit.index + (unit.ship.length - 1) * size >= index
+          ) {
+            return false;
+          }
+          if (
+            unit.index <= end
+            && unit.index + (unit.ship.length - 1) * size >= end
+          ) {
+            return false;
+          }
+        }
+      } else if (unit.ship.id !== ship.id && !unit.v) {
+        // for other horizontal, their head or tail modulo size should not surround index
+        if (index <= unit.index && unit.index <= end) {
+          if (
+            unit.index % size <= index % size
+            && index % size <= (unit.index + unit.ship.length - 1) % size
+          ) {
+            return false;
+          }
+        }
+        if (
+          index <= unit.index + unit.ship.length - 1
+          && unit.index + unit.ship.length - 1 <= end
+        ) {
+          if (
+            unit.index % size <= index % size
+            && index % size <= (unit.index + unit.ship.length - 1) % size
+          ) {
+            return false;
+          }
+        }
       }
     }
+    // for (let i = index; i <= end; i += size) {
+    //   if (board[i].id && board[i].id !== ship.id) {
+    //     return false;
+    //   }
+    // }
 
     return true;
   };

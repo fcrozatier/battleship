@@ -62,8 +62,9 @@ describe('gameboard', () => {
     const ship1 = Ship(2);
     const ship2 = Ship(2);
     gameboard.position(0, ship1);
-    expect(gameboard.position(0, ship2)).toBeFalsy();
-    expect(gameboard.position(0, ship2, true)).toBeFalsy();
+    gameboard.position(0, ship2);
+    gameboard.position(0, ship2, true);
+    expect(gameboard.fleet).toHaveLength(1);
   });
 
   test('can reposition ships', () => {

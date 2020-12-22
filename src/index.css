@@ -14,7 +14,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "VT323", monospace;
+  font-family: "Press Start 2P", "VT323", monospace;
   font-size: 30px;
   background-color: var(--bg);
 }

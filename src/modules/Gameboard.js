@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import Ship from './Ship';
 
 export default (size = 10) => {
@@ -23,7 +24,6 @@ export default (size = 10) => {
     if (Math.floor(index / size) !== Math.floor(endIdx / size)) return false;
 
     // Check positions are free
-    // eslint-disable-next-line no-restricted-syntax
     for (const unit of fleet) {
       // for other horizontal, head or tail of ship should not end in their middle of these
       if (unit.ship.id !== ship.id && !unit.v) {
@@ -62,11 +62,6 @@ export default (size = 10) => {
         }
       }
     }
-    // if (
-    //   board.slice(index, endIdx + 1).some((el) => el.id && el.id !== ship.id)
-    // ) {
-    //   return false;
-    // }
 
     return true;
   };
@@ -88,7 +83,6 @@ export default (size = 10) => {
     }
 
     // Check positions are free
-    // eslint-disable-next-line no-restricted-syntax
     for (const unit of fleet) {
       // for other vertical, should not be aligned with head of tail of ship in their middle
       if (unit.ship.id !== ship.id && unit.v) {
@@ -129,11 +123,6 @@ export default (size = 10) => {
         }
       }
     }
-    // for (let i = index; i <= end; i += size) {
-    //   if (board[i].id && board[i].id !== ship.id) {
-    //     return false;
-    //   }
-    // }
 
     return true;
   };
@@ -147,10 +136,10 @@ export default (size = 10) => {
 
   const position = (index, ship, v = false) => {
     if (v && canVPosition(index, ship)) {
-      vPosition(index, ship);
+      // vPosition(index, ship);
       fleet.push({ ship, index, v });
     } else if (!v && canHPosition(index, ship)) {
-      hPosition(index, ship);
+      // hPosition(index, ship);
       fleet.push({ ship, index, v });
     }
   };
@@ -179,10 +168,22 @@ export default (size = 10) => {
   };
 
   const receiveAttack = (index) => {
-    // TODO: NOT RELY ON .BOARD BUT .FLEET
-    const ship = board[index];
-    if (ship !== 0) {
-      ship.hit();
+    for (const unit of fleet) {
+      if (
+        !unit.v
+        && unit.index <= index
+        && index <= unit.index + unit.ship.length - 1
+      ) {
+        unit.ship.hit();
+      }
+      if (
+        unit.v
+        && index % size === unit.index % size
+        && unit.index <= index
+        && index <= unit.index + (unit.ship.length - 1) * size
+      ) {
+        unit.ship.hit();
+      }
     }
     hits.push(index);
     return hits;

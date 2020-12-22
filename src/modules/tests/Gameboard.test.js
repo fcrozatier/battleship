@@ -12,13 +12,12 @@ describe('gameboard', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(1);
     gameboard.position(1, ship);
-    expect(gameboard.board).toEqual([0, ship, 0, 0]);
+    expect(gameboard.fleet[0].index).toEqual(1);
 
     const gameboard2 = Gameboard(2);
     const ship2 = Ship(2);
     gameboard2.position(2, ship2);
-    expect(gameboard2.board).toEqual([0, 0, ship2, ship2]);
-    expect(gameboard2.fleet).toHaveLength(1);
+    expect(gameboard2.fleet[0].index).toEqual(2);
   });
 
   test('position ships vertically', () => {
@@ -29,18 +28,17 @@ describe('gameboard', () => {
     const endBoard = Array(9).fill(0);
     endBoard[4] = ship;
     endBoard[7] = ship;
-    expect(gameboard.board).toEqual(endBoard);
+    expect(gameboard.fleet[0].index).toEqual(4);
+    expect(gameboard.fleet[0].v).toBeTruthy();
   });
 
   test('cannot position outside grid', () => {
     const gameboard = Gameboard(1);
     const ship = Ship(1);
     expect(gameboard.position(1, ship)).toBeFalsy();
-    expect(gameboard.board).not.toEqual([0, ship]);
     expect(gameboard.fleet).toHaveLength(0);
 
     expect(gameboard.position(1, ship, true)).toBeFalsy();
-    expect(gameboard.board).not.toEqual([0, ship]);
     expect(gameboard.fleet).toHaveLength(0);
   });
 
@@ -48,12 +46,9 @@ describe('gameboard', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(2);
     gameboard.position(1, ship);
-    expect(gameboard.board).not.toEqual([0, ship, ship, 0]);
-    expect(gameboard.board).toEqual([0, 0, 0, 0]);
     expect(gameboard.fleet).toHaveLength(0);
 
     expect(gameboard.position(2, ship, true)).toBeFalsy();
-    expect(gameboard.board).toEqual([0, 0, 0, 0]);
     expect(gameboard.fleet).toHaveLength(0);
   });
 

@@ -1,9 +1,9 @@
 import Gameboard from './Gameboard';
 
-export default (ai) => {
+export default (ai, id = Math.random() * 10) => {
   const gameboard = Gameboard();
   const isBot = ai;
-  const name = isBot ? 'AI' : 'Human';
+  const name = isBot ? 'AI' : id;
 
   const validAttack = (player, index) => !player.gameboard.hits.includes(index);
 

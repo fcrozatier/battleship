@@ -3,11 +3,11 @@ import Player from '../Player';
 describe('player', () => {
   test('create Player', () => {
     const bot = Player(true);
-    const human = Player(false);
+    const human = Player(false, 'Player');
     expect(bot.gameboard.fleet).toHaveLength(5);
     expect(human.gameboard.fleet).toHaveLength(5);
     expect(bot.name).toBe('AI');
-    expect(human.name).toBe('Human');
+    expect(human.name).toBe('Player');
     expect(bot.hasLost()).toBeFalsy();
   });
 

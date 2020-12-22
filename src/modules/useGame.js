@@ -1,26 +1,35 @@
 import { useState } from 'react';
 import Player from './Player';
 
-const useGame = () => {
-  const [human, setHuman] = useState(Player(false));
-  const [bot, setBot] = useState(Player(true));
+const useGame = (players) => {
+  const [player1, setPlayer1] = useState(Player(false, 'Player 1'));
+  const [player2, setPlayer2] = useState(
+    Player(players !== 2, players === 2 ? 'Player 2' : 'AI'),
+  );
+  const [bot, setBot] = useState(Player(true, 'AI'));
 
   const calculateWinner = () => {
-    if (bot.hasLost()) return human;
-    if (human.hasLost()) return bot;
+    if (player2.hasLost()) return player1;
+    if (player1.hasLost()) return player2;
     return false;
   };
 
   const setGame = (index) => {
-    const botPass = !human.validAttack(bot, index);
-    setBot({ ...bot, gameboard: human.attack(bot, index) });
-    setHuman({ ...human, gameboard: bot.attack(human, botPass) });
+    const botPass = !player1.validAttack(player2, index);
+    if (players === 2) {
+      setPlayer2({ ...player2, gameboard: player1.attack(player2, index) });
+      setPlayer1({ ...player1, gameboard: player2.attack(player1, botPass) });
+    } else {
+      setBot({ ...bot, gameboard: player1.attack(bot, index) });
+      setPlayer1({ ...player1, gameboard: bot.attack(player1, botPass) });
+    }
   };
 
   return [
     {
       bot,
-      human,
+      player1,
+      player2,
       calculateWinner,
     },
     setGame,

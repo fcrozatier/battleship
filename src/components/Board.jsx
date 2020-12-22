@@ -11,6 +11,10 @@ const Board = ({ fleet, hits, onClick }) => {
     setGameboard({ ...gameboard, fleet: gameboard.reposition(i, id) });
   };
 
+  const handleRotate = (id) => {
+    setGameboard({ ...gameboard, fleet: gameboard.rotate(id) });
+  };
+
   const drawBoard = () => {
     const board = gameboard.createBoard();
     return board.map((cell, i) => (
@@ -25,6 +29,8 @@ const Board = ({ fleet, hits, onClick }) => {
         }}
         onDrop={(id) => handleDrop(i, id)}
         onCanDrop={(id) => gameboard.canReposition(i, id)}
+        onCanRotate={(id) => gameboard.canRotate(id)}
+        onRotate={(id) => handleRotate(id)}
       />
     ));
   };

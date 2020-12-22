@@ -1,9 +1,12 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import { PropTypes, bool } from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { GiNuclearBomb } from 'react-icons/gi';
+import { GrRotateLeft } from 'react-icons/gr';
 
-function Ship({ hit, unit }) {
+function Ship({
+  hit, unit, canRotate, rotate,
+}) {
   const classes = hit ? 'ship hit' : 'ship';
   const style = unit.v
     ? {
@@ -20,14 +23,26 @@ function Ship({ hit, unit }) {
   });
 
   return (
-    <div style={style} className={classes} ref={drag}>
+    <div
+      style={style}
+      className={classes}
+      ref={drag}
+      onDoubleClick={() => rotate()}
+    >
+      {canRotate && (
+        <GrRotateLeft
+          style={{ marginLeft: '8px', marginTop: '8px', fontSize: '24px' }}
+        />
+      )}
       {hit && <GiNuclearBomb />}
     </div>
   );
 }
 
 Ship.propTypes = {
+  canRotate: bool,
   hit: PropTypes.bool,
+  rotate: PropTypes.func,
   unit: PropTypes.shape({
     index: PropTypes.number,
     // eslint-disable-next-line react/forbid-prop-types
@@ -37,7 +52,9 @@ Ship.propTypes = {
 };
 
 Ship.defaultProps = {
+  canRotate: false,
   hit: false,
+  rotate: () => {},
   unit: {},
 };
 

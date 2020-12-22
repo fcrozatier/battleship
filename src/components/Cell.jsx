@@ -5,7 +5,13 @@ import { useDrop } from 'react-dnd';
 import Ship from './Ship';
 
 function Cell({
-  value, hit, onClick, onDrop, onCanDrop,
+  value,
+  hit,
+  onClick,
+  onDrop,
+  onCanDrop,
+  onCanRotate,
+  onRotate,
 }) {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'ship',
@@ -36,7 +42,14 @@ function Cell({
       role="button"
       tabIndex="-1"
     >
-      {value !== null && <Ship unit={value} hit={hit} />}
+      {value !== null && (
+        <Ship
+          unit={value}
+          hit={hit}
+          canRotate={onCanRotate(value.ship.id)}
+          rotate={() => onRotate(value.ship.id)}
+        />
+      )}
       {value === null && hit && <GiNuclearBomb />}
     </div>
   );
@@ -47,15 +60,19 @@ Cell.propTypes = {
   hit: PropTypes.bool,
   onClick: PropTypes.func,
   onCanDrop: PropTypes.func,
+  onCanRotate: PropTypes.func,
   onDrop: PropTypes.func,
+  onRotate: PropTypes.func,
 };
 
 Cell.defaultProps = {
   value: false,
   hit: false,
   onClick: () => {},
-  onDrop: () => {},
   onCanDrop: () => {},
+  onCanRotate: () => {},
+  onDrop: () => {},
+  onRotate: () => {},
 };
 
 export default Cell;

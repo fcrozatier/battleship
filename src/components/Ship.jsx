@@ -5,7 +5,6 @@ import { GiNuclearBomb } from 'react-icons/gi';
 
 function Ship({ hit, unit }) {
   const classes = hit ? 'ship hit' : 'ship';
-
   const style = unit.v
     ? {
       width: '42px',
@@ -15,9 +14,11 @@ function Ship({ hit, unit }) {
       width: `${unit.ship.length * 41}px`,
       height: '42px',
     };
+
   const [, drag] = useDrag({
     item: { type: 'ship', id: unit.ship.id },
   });
+
   return (
     <div style={style} className={classes} ref={drag}>
       {hit && <GiNuclearBomb />}

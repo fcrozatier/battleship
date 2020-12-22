@@ -65,14 +65,6 @@ export default (size = 10) => {
     return true;
   };
 
-  // const hPosition = (index, ship) => {
-  //   const endIdx = index + ship.length - 1;
-
-  //   for (let i = index; i <= endIdx; i += 1) {
-  //     board[i] = ship;
-  //   }
-  // };
-
   const canVPosition = (index, ship) => {
     const end = index + (ship.length - 1) * size;
 
@@ -126,19 +118,8 @@ export default (size = 10) => {
     return true;
   };
 
-  // const vPosition = (index, ship) => {
-  //   const end = index + (ship.length - 1) * size;
-  //   for (let i = index; i <= end; i += size) {
-  //     board[i] = ship;
-  //   }
-  // };
-
   const position = (index, ship, v = false) => {
-    if (v && canVPosition(index, ship)) {
-      // vPosition(index, ship);
-      fleet.push({ ship, index, v });
-    } else if (!v && canHPosition(index, ship)) {
-      // hPosition(index, ship);
+    if ((v && canVPosition(index, ship)) || (!v && canHPosition(index, ship))) {
       fleet.push({ ship, index, v });
     }
   };
@@ -158,7 +139,24 @@ export default (size = 10) => {
         }
       });
     }
+    return fleet;
+  };
 
+  const canRotate = (id) => {
+    const { index, ship, v } = fleet.find((unit) => unit.ship.id === id);
+    return (
+      (v && canHPosition(index, ship)) || (!v && canVPosition(index, ship))
+    );
+  };
+
+  const rotate = (id) => {
+    if (canRotate(id)) {
+      fleet.forEach((unit, idx) => {
+        if (unit.ship.id === id) {
+          fleet[idx].v = !fleet[idx].v;
+        }
+      });
+    }
     return fleet;
   };
 
@@ -208,6 +206,7 @@ export default (size = 10) => {
 
   return {
     canReposition,
+    canRotate,
     createBoard,
     fleet,
     fleetSunk,
@@ -215,6 +214,7 @@ export default (size = 10) => {
     position,
     receiveAttack,
     reposition,
+    rotate,
     shipsLeft,
   };
 };

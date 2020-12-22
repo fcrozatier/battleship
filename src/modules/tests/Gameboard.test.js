@@ -118,6 +118,30 @@ describe('gameboard', () => {
     expect(gameboard.fleet[0].v).toBeTruthy();
   });
 
+  test('can rotate', () => {
+    const gameboard = Gameboard(2);
+    const ship = Ship(2, 'kanoe');
+    const ship2 = Ship(2, 'kayak');
+    gameboard.position(0, ship, true);
+
+    expect(gameboard.canRotate('kanoe')).toBeTruthy();
+    gameboard.position(1, ship2, true);
+    expect(gameboard.canRotate('kanoe')).toBeFalsy();
+  });
+
+  test('rotate', () => {
+    const gameboard = Gameboard(2);
+    const ship = Ship(2, 'kanoe');
+    gameboard.position(0, ship, true);
+    gameboard.rotate('kanoe');
+    expect(gameboard.fleet[0].v).toBeFalsy();
+
+    const ship2 = Ship(2, 'kayak');
+    gameboard.position(2, ship2);
+    gameboard.rotate('kayak');
+    expect(gameboard.fleet.filter((x) => x.id === 'kayak').v).toBeFalsy();
+  });
+
   test('receive attack', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(2);

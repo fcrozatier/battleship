@@ -2,16 +2,15 @@
 import Ship from './Ship';
 
 export default (size = 10) => {
-  const board = Array(size * size).fill(0);
   const hits = [];
   const fleet = [];
 
-  const clearBoard = (ship) => {
-    board.forEach((cell, index) => {
-      if (cell.id && cell.id === ship.id) {
-        board[index] = 0;
-      }
+  const createBoard = () => {
+    const board = Array(size * size).fill(null);
+    fleet.forEach((unit) => {
+      board[unit.index] = unit;
     });
+    return board;
   };
 
   const canHPosition = (index, ship) => {
@@ -66,13 +65,13 @@ export default (size = 10) => {
     return true;
   };
 
-  const hPosition = (index, ship) => {
-    const endIdx = index + ship.length - 1;
+  // const hPosition = (index, ship) => {
+  //   const endIdx = index + ship.length - 1;
 
-    for (let i = index; i <= endIdx; i += 1) {
-      board[i] = ship;
-    }
-  };
+  //   for (let i = index; i <= endIdx; i += 1) {
+  //     board[i] = ship;
+  //   }
+  // };
 
   const canVPosition = (index, ship) => {
     const end = index + (ship.length - 1) * size;
@@ -127,12 +126,12 @@ export default (size = 10) => {
     return true;
   };
 
-  const vPosition = (index, ship) => {
-    const end = index + (ship.length - 1) * size;
-    for (let i = index; i <= end; i += size) {
-      board[i] = ship;
-    }
-  };
+  // const vPosition = (index, ship) => {
+  //   const end = index + (ship.length - 1) * size;
+  //   for (let i = index; i <= end; i += size) {
+  //     board[i] = ship;
+  //   }
+  // };
 
   const position = (index, ship, v = false) => {
     if (v && canVPosition(index, ship)) {
@@ -152,11 +151,7 @@ export default (size = 10) => {
   };
 
   const reposition = (index, id) => {
-    const { ship, v } = fleet.find((unit) => unit.ship.id === id);
     if (canReposition(index, id)) {
-      clearBoard(ship);
-      if (v) vPosition(index, ship);
-      if (!v) hPosition(index, ship);
       fleet.forEach((unit, idx) => {
         if (unit.ship.id === id) {
           fleet[idx].index = index;
@@ -164,7 +159,7 @@ export default (size = 10) => {
       });
     }
 
-    return board;
+    // return board;
   };
 
   const receiveAttack = (index) => {
@@ -212,8 +207,8 @@ export default (size = 10) => {
   }
 
   return {
-    board,
     canReposition,
+    createBoard,
     fleet,
     fleetSunk,
     hits,

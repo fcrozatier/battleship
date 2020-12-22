@@ -2,12 +2,6 @@ import Gameboard from '../Gameboard';
 import Ship from '../Ship';
 
 describe('gameboard', () => {
-  test('create an empty board', () => {
-    expect(Gameboard(2).board).toHaveLength(4);
-    expect(Gameboard(2).board).not.toEqual(['', 0, 0, 0]);
-    expect(Gameboard(2).board).toEqual([0, 0, 0, 0]);
-  });
-
   test('position ships horizontally', () => {
     const gameboard = Gameboard(2);
     const ship = Ship(1);

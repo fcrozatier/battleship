@@ -5,11 +5,7 @@ import { useDrop } from 'react-dnd';
 import Ship from './Ship';
 
 function Cell({
-  value,
-  hit,
-  onClick,
-  onDrop,
-  onCanDrop,
+  value, hit, onClick, onDrop, onCanDrop,
 }) {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'ship',
@@ -40,14 +36,14 @@ function Cell({
       role="button"
       tabIndex="-1"
     >
-      {value !== 0 && <Ship ship={value} hit={hit} />}
-      {value === 0 && hit && <GiNuclearBomb />}
+      {value !== null && <Ship unit={value} hit={hit} />}
+      {value === null && hit && <GiNuclearBomb />}
     </div>
   );
 }
 
 Cell.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   hit: PropTypes.bool,
   onClick: PropTypes.func,
   onCanDrop: PropTypes.func,

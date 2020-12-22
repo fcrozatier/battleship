@@ -159,7 +159,7 @@ export default (size = 10) => {
       });
     }
 
-    // return board;
+    return fleet;
   };
 
   const receiveAttack = (index) => {
@@ -215,7 +215,6 @@ export default (size = 10) => {
     position,
     receiveAttack,
     reposition,
-    size,
     shipsLeft,
   };
 };

@@ -1,20 +1,38 @@
-import { PropTypes } from 'prop-types';
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { GiNuclearBomb } from 'react-icons/gi';
 
 function Ship({ hit, unit }) {
-  const style = hit ? 'ship hit' : 'ship';
+  const classes = hit ? 'ship hit' : 'ship';
+
+  const style = unit.v
+    ? {
+      width: '42px',
+      height: `${unit.ship.length * 41}px`,
+    }
+    : {
+      width: `${unit.ship.length * 41}px`,
+      height: '42px',
+    };
   const [, drag] = useDrag({
     item: { type: 'ship', id: unit.ship.id },
   });
-  return <div className={style} ref={drag}>{hit && <GiNuclearBomb />}</div>;
+  return (
+    <div style={style} className={classes} ref={drag}>
+      {hit && <GiNuclearBomb />}
+    </div>
+  );
 }
 
 Ship.propTypes = {
   hit: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  unit: PropTypes.object,
+  unit: PropTypes.shape({
+    index: PropTypes.number,
+    // eslint-disable-next-line react/forbid-prop-types
+    ship: PropTypes.object,
+    v: PropTypes.bool,
+  }),
 };
 
 Ship.defaultProps = {

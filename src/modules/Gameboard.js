@@ -197,7 +197,7 @@ export default (size = 10) => {
     const battleship = Ship(4, 'battleship');
     const destroyer = Ship(3, 'destroyer');
     const submarine = Ship(3, 'submarine');
-    const patrol = Ship(2, 'patrol boat');
+    const patrol = Ship(2, 'patrol');
 
     position(22, carrier, true);
     position(4, battleship);

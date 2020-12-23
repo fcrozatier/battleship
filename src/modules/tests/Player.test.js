@@ -1,9 +1,15 @@
 import Player from '../Player';
 
 describe('player', () => {
+  let bot = Player('AI');
+  let human = Player('Player');
+
+  beforeEach(() => {
+    bot = Player('AI');
+    human = Player('Player');
+  });
+
   test('create Player', () => {
-    const bot = Player(true);
-    const human = Player(false, 'Player');
     expect(bot.gameboard.fleet).toHaveLength(5);
     expect(human.gameboard.fleet).toHaveLength(5);
     expect(bot.name).toBe('AI');
@@ -12,8 +18,6 @@ describe('player', () => {
   });
 
   test('attack position', () => {
-    const bot = Player(true);
-    const human = Player(false);
     bot.attack(human, 0);
     expect(human.gameboard.hits).toHaveLength(1);
 
@@ -22,10 +26,7 @@ describe('player', () => {
   });
 
   test('track hits', () => {
-    const bot = Player(true);
-    const human = Player(false);
     expect(human.gameboard.hits).toEqual([]);
-
     human.attack(bot, 11);
     human.attack(bot, 13);
     human.attack(bot, 17);
@@ -33,18 +34,12 @@ describe('player', () => {
   });
 
   test("can't attack same position twice", () => {
-    const bot = Player(true);
-    const human = Player(false);
-
     human.attack(bot, 51);
     human.attack(bot, 51);
     expect(bot.gameboard.hits).toHaveLength(1);
   });
 
   test('can pass', () => {
-    const bot = Player(true);
-    const human = Player(false);
-
     bot.attack(human);
     bot.attack(human, true);
     bot.attack(human, false);
@@ -57,9 +52,6 @@ describe('player', () => {
   });
 
   test('loses when the fleet is sunk', () => {
-    const bot = Player(true);
-    const human = Player(false);
-
     expect(bot.hasLost()).toBeFalsy();
     for (let i = 0; i < 100; i += 1) {
       human.attack(bot, i);

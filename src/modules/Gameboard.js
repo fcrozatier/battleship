@@ -160,6 +160,24 @@ export default (size = 10) => {
     return fleet;
   };
 
+  const positionAtRandom = () => {
+    fleet.forEach((unit, idx) => {
+      const v = !!Math.floor(Math.random() * 2);
+      const map = v ? canVPosition : canHPosition;
+      let index;
+      let tried = 0;
+      do {
+        tried += 1;
+        index = Math.floor(Math.random() * size ** 2);
+      } while (!map(index, unit.ship) || tried <= 100);
+      if (map(index, unit.ship)) {
+        fleet[idx].v = v;
+        fleet[idx].index = index;
+      }
+    });
+    return fleet;
+  };
+
   const receiveAttack = (index) => {
     for (const unit of fleet) {
       if (
@@ -212,6 +230,7 @@ export default (size = 10) => {
     fleetSunk,
     hits,
     position,
+    positionAtRandom,
     receiveAttack,
     reposition,
     rotate,

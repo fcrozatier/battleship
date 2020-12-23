@@ -220,6 +220,7 @@ export default (size = 10) => {
     position(55, destroyer);
     position(1, submarine, true);
     position(36, patrol, true);
+    positionAtRandom();
   }
 
   return {

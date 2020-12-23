@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Player from './Player';
 
-const useGame = (players) => {
-  const [player1, setPlayer1] = useState(Player(false, 'Player 1'));
+const useGame = (players, gameboard1, gameboard2) => {
+  const [player1, setPlayer1] = useState(Player('Player 1', gameboard1));
   const [player2, setPlayer2] = useState(
-    Player(players !== 2, players === 2 ? 'Player 2' : 'AI'),
+    Player(players === 2 ? 'Player 2' : 'AI', gameboard2),
   );
   const [bot, setBot] = useState(Player(true, 'AI'));
 

@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import Cell from './Cell';
 import Gameboard from '../modules/Gameboard';
 
-// eslint-disable-next-line no-unused-vars
-const Board = ({ fleet, hits, onClick }) => {
+const Board = ({
+  boardInit,
+  dnd,
+  // eslint-disable-next-line no-unused-vars
+  fleet,
+  hits,
+  onClick,
+}) => {
   const [gameboard, setGameboard] = useState(Gameboard());
 
   const handleDrop = (i, id) => {
@@ -13,6 +19,10 @@ const Board = ({ fleet, hits, onClick }) => {
 
   const handleRotate = (id) => {
     setGameboard({ ...gameboard, fleet: gameboard.rotate(id) });
+  };
+
+  const handleRandom = () => {
+    setGameboard({ ...gameboard, fleet: gameboard.positionAtRandom() });
   };
 
   const drawBoard = () => {
@@ -36,19 +46,36 @@ const Board = ({ fleet, hits, onClick }) => {
   };
 
   return (
-    <div className="board-grid">
-      {drawBoard()}
-    </div>
+    <>
+      <div className={`board-grid ${dnd ? 'dnd-board' : ''}`}>
+        {drawBoard()}
+      </div>
+      {dnd && (
+        <div className="btn-wrapper">
+          <button className="btn" type="button" onClick={handleRandom}>
+            Random
+          </button>
+
+          <button className="btn" type="button" onClick={() => boardInit(gameboard)}>
+            Continue
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
 Board.propTypes = {
+  boardInit: PropTypes.func,
+  dnd: PropTypes.bool,
   fleet: PropTypes.arrayOf(PropTypes.object),
   hits: PropTypes.arrayOf(PropTypes.number),
   onClick: PropTypes.func,
 };
 
 Board.defaultProps = {
+  boardInit: () => {},
+  dnd: false,
   fleet: [],
   hits: [],
   onClick: () => {},

@@ -1,13 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Feedback({ players }) {
+function Feedback({ players, gameboards }) {
   let message;
-  if (players === 0) message = 'Battlefied';
+  if (players === 0) message = <h2 className="heading">Battlefied</h2>;
+  if (players !== 0 && gameboards !== players) {
+    message = (
+      <>
+        <h2 className="heading">
+          Player
+          {gameboards + 1}
+          {': '}
+          place your ships
+        </h2>
+        <div className="info-wrapper">
+          <ul className="info">
+            <li>Drag&apos;n drop to move</li>
+            <li>Double click to rotate</li>
+          </ul>
+        </div>
+      </>
+    );
+  }
   return (
     <header
-      style={{ fontSize: players === 0 ? '50px' : '20px' }}
-      className="flex feedback"
+      className="feedback"
     >
       {message}
     </header>
@@ -15,10 +32,12 @@ function Feedback({ players }) {
 }
 
 Feedback.propTypes = {
+  gameboards: PropTypes.number,
   players: PropTypes.number,
 };
 
 Feedback.defaultProps = {
+  gameboards: 0,
   players: 0,
 };
 

@@ -30,7 +30,8 @@ const Board = ({
     return board.map((cell, i) => (
       <Cell
         key={Math.random() * 1000}
-        value={cell}
+        unit={cell}
+        drawShip={gameboard.unitIndices().includes(i)}
         hit={hits.includes(i)}
         onClick={() => {
           if (onClick) {

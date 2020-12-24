@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GiNuclearBomb } from 'react-icons/gi';
 import { useDrop } from 'react-dnd';
 import Ship from './Ship';
 
 function Cell({
-  value,
+  unit,
+  drawShip,
   hit,
   onClick,
   dnd,
@@ -26,13 +26,17 @@ function Cell({
     }),
   });
 
-  const classes = hit ? 'cell hit' : 'cell';
+  let classes = 'cell';
+  classes += drawShip ? ' draw-ship' : '';
+  classes += hit ? ' hit' : '';
+
   const style = {
     backgroundColor: canDrop && 'rgb(248, 249, 231)',
     border:
       (isOver && canDrop && '1px solid green')
       || (isOver && !canDrop && '1px solid red'),
   };
+
   return (
     <div
       ref={drop}
@@ -43,22 +47,21 @@ function Cell({
       role="button"
       tabIndex="-1"
     >
-      {value !== null && (
+      {unit !== null && (
         <Ship
           dnd={dnd}
-          unit={value}
-          hit={hit}
-          canRotate={onCanRotate(value.ship.id)}
-          rotate={() => onRotate(value.ship.id)}
+          unit={unit}
+          canRotate={onCanRotate(unit.ship.id)}
+          rotate={() => onRotate(unit.ship.id)}
         />
       )}
-      {value === null && hit && <GiNuclearBomb />}
     </div>
   );
 }
 
 Cell.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  unit: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  drawShip: PropTypes.bool,
   hit: PropTypes.bool,
   onClick: PropTypes.func,
   dnd: PropTypes.bool,
@@ -69,7 +72,8 @@ Cell.propTypes = {
 };
 
 Cell.defaultProps = {
-  value: false,
+  unit: false,
+  drawShip: false,
   hit: false,
   dnd: false,
   onClick: () => {},

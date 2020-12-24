@@ -44,7 +44,7 @@ function App() {
         gameboards={gameboards}
         player1Turn={player1Turn}
         info={message}
-        winner={winner}
+        winner={winner()}
       />
 
       {/* If number of players is not set or there is a winner */}
@@ -70,7 +70,7 @@ function App() {
       )}
 
       {/* When there is a winner */}
-      {winner
+      {winner()
         && <ChoosePlayers onClick={setPlayers} />}
     </div>
   );

@@ -10,9 +10,8 @@ const useGame = () => {
   );
   const [player1Turn, setPlayer1Turn] = useState(true);
   const [message, setMessage] = useState('');
-  const [winner, setWinner] = useState(false);
 
-  // const initializeGame = () => {
+  // const reset = () => {
   //   setPlayers(0);
   //   setGameboards(0);
   //   setPlayer1Turn(true);
@@ -23,7 +22,7 @@ const useGame = () => {
     setPlayer1Turn((prev) => !prev);
   };
 
-  const calculateWinner = () => {
+  const winner = () => {
     if (player2.hasLost()) return player1.name;
     if (player1.hasLost()) return player2.name;
     return false;
@@ -39,7 +38,6 @@ const useGame = () => {
         gameboard: player2.attack(player1, player2Pass),
       });
     }
-    setWinner(calculateWinner());
   };
 
   return [

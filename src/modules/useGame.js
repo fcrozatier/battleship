@@ -24,7 +24,7 @@ const useGame = () => {
   const setGame = (index) => {
     if (player1Turn) {
       const player2Pass = !player1.validAttack(player2, index);
-      setMessage(player2Pass ? 'Target empty cells!' : '');
+      setMessage(player2Pass ? 'Try again another one!' : '');
       setPlayer2({ ...player2, gameboard: player1.attack(player2, index) });
       setPlayer1({
         ...player1,

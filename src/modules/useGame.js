@@ -9,6 +9,7 @@ const useGame = () => {
     Player(players === 2 ? 'Player2' : 'AI'),
   );
   const [player1Turn, setPlayer1Turn] = useState(true);
+  const [message, setMessage] = useState('');
 
   const switchPlayers = () => {
     setPlayer1Turn((prev) => !prev);
@@ -23,6 +24,7 @@ const useGame = () => {
   const setGame = (index) => {
     if (player1Turn) {
       const player2Pass = !player1.validAttack(player2, index);
+      setMessage(player2Pass ? 'Target empty cells!' : '');
       setPlayer2({ ...player2, gameboard: player1.attack(player2, index) });
       setPlayer1({
         ...player1,
@@ -35,6 +37,7 @@ const useGame = () => {
     {
       calculateWinner,
       gameboards,
+      message,
       players,
       player1,
       player2,

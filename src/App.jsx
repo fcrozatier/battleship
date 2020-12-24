@@ -15,6 +15,7 @@ function App() {
     {
       calculateWinner,
       gameboards,
+      message,
       players,
       player1,
       player2,
@@ -43,6 +44,7 @@ function App() {
         players={players}
         gameboards={gameboards}
         player1Turn={player1Turn}
+        info={message}
       />
 
       {/* If number of players is not set */}

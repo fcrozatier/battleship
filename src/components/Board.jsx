@@ -8,7 +8,6 @@ const Board = ({
   dnd,
   gameboardProp,
   gameboards,
-  hits,
   onClick,
 }) => {
   const [gameboard, setGameboard] = useState(gameboardProp);
@@ -27,6 +26,7 @@ const Board = ({
 
   const drawBoard = () => {
     const board = gameboard.createBoard();
+    const { hits } = gameboard;
     return board.map((cell, i) => (
       <Cell
         key={Math.random() * 1000}
@@ -78,7 +78,6 @@ Board.propTypes = {
   gameboardProp: PropTypes.object,
   // number of gameboards initialized
   gameboards: PropTypes.number,
-  hits: PropTypes.arrayOf(PropTypes.number),
   onClick: PropTypes.func,
 };
 
@@ -87,7 +86,6 @@ Board.defaultProps = {
   dnd: false,
   gameboards: 0,
   gameboardProp: Gameboard(),
-  hits: [],
   onClick: () => {},
 };
 

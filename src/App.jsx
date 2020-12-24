@@ -11,25 +11,22 @@ import DashBoard from './components/DashBoard';
 import './app.css';
 
 function App() {
-  const [players, setPlayers] = useState(0);
-  const [gameboards, setGameboards] = useState(0);
-  const [player1, setPlayer1] = useState(Player('Player1'));
-  const [player2, setPlayer2] = useState(
-    Player(players === 2 ? 'Player2' : 'AI'),
-  );
-  const [player1Turn, setPlayer1Turn] = useState(true);
-  // const [gameboard1, setGameboard1] = useState(Gameboard());
-  // const [gameboard2, setGameboard2] = useState(Gameboard());
-  // const [{ player2, calculateWinner }, setGame] = useGame(
-  //   players,
-  //   gameboard1,
-  //   gameboard2
-  // );
+  const [
+    {
+      calculateWinner,
+      gameboards,
+      players,
+      player1,
+      player2,
+      player1Turn,
+      setGameboards,
+      setPlayers,
+      setPlayer1,
+      setPlayer2,
+    },
+    setGame,
+  ] = useGame();
   // const winner = calculateWinner();
-
-  const choosePlayers = (num) => {
-    setPlayers(num);
-  };
 
   const handleBoardInit = (player, gameboard) => {
     setGameboards(player);
@@ -37,7 +34,7 @@ function App() {
   };
 
   const handleClick = (index) => {
-    // setGame(index);
+    setGame(index);
   };
 
   return (
@@ -47,8 +44,9 @@ function App() {
         gameboards={gameboards}
         player1Turn={player1Turn}
       />
-      {/* If number of players is not set, choose */}
-      {!players && <ChoosePlayers onClick={choosePlayers} />}
+
+      {/* If number of players is not set */}
+      {!players && <ChoosePlayers onClick={setPlayers} />}
 
       {/* If the number of initialized boards does not equal the number of players */}
       {!!players && gameboards !== players && (
@@ -62,7 +60,11 @@ function App() {
 
       {/* Main game phase (ONE PLAYER ONLY FOR NOW) */}
       {players === 1 && gameboards === players && (
-        <DashBoard player1={player1} player2={player2} />
+        <DashBoard
+          player1={player1}
+          player2={player2}
+          handleClick={handleClick}
+        />
       )}
     </div>
   );

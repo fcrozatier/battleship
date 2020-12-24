@@ -8,7 +8,6 @@ function DashBoard({ player1, player2, handleClick }) {
       <div className="my-board">
         <Board
           gameboardProp={player1.gameboard}
-          hits={player1.gameboard.hits}
         />
         <div className="info">
           Ships left:
@@ -18,7 +17,6 @@ function DashBoard({ player1, player2, handleClick }) {
       <div className="enemy-board">
         <Board
           gameboardProp={player2.gameboard}
-          hits={player2.gameboard.hits}
           onClick={handleClick}
         />
         <div className="info">

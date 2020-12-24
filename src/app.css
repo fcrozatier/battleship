@@ -93,14 +93,15 @@
   z-index: 1;
 }
 
-.my-board .ship,
-.dnd-board .ship {
+.enemy-board .ship {
+  display: none;
+}
+
+.my-board .ship {
   background-color: #74bac1;
 }
 
 .hit .ship {
-  /* height: 100%;
-  width: 100%; */
   background-color: #e06d6d;
 }
 

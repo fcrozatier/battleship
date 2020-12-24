@@ -37,8 +37,8 @@
 .feedback {
   text-align: center;
   margin-top: 10px;
-  padding: 40px;
-  min-height: 200px;
+  padding-top: 40px;
+  min-height: 150px;
 }
 
 .heading {
@@ -46,6 +46,7 @@
 }
 
 .info-wrapper {
+  display: block;
   margin-top: 30px;
 }
 

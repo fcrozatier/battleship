@@ -13,7 +13,6 @@ import './app.css';
 function App() {
   const [
     {
-      calculateWinner,
       gameboards,
       message,
       players,
@@ -24,10 +23,10 @@ function App() {
       setPlayers,
       setPlayer1,
       setPlayer2,
+      winner,
     },
     setGame,
   ] = useGame();
-  // const winner = calculateWinner();
 
   const handleBoardInit = (player, gameboard) => {
     setGameboards(player);
@@ -45,9 +44,10 @@ function App() {
         gameboards={gameboards}
         player1Turn={player1Turn}
         info={message}
+        winner={winner}
       />
 
-      {/* If number of players is not set */}
+      {/* If number of players is not set or there is a winner */}
       {!players && <ChoosePlayers onClick={setPlayers} />}
 
       {/* If the number of initialized boards does not equal the number of players */}
@@ -68,6 +68,10 @@ function App() {
           handleClick={handleClick}
         />
       )}
+
+      {/* When there is a winner */}
+      {winner
+        && <ChoosePlayers onClick={setPlayers} />}
     </div>
   );
 }

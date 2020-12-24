@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Feedback({
-  players, gameboards, info, player1Turn,
+  players, gameboards, info, player1Turn, winner,
 }) {
   let message;
   if (!players) {
@@ -24,7 +24,7 @@ function Feedback({
         </div>
       </>
     );
-  } else if (players && gameboards === players) {
+  } else if (players && gameboards === players && !winner) {
     message = (
       <>
         <h2 className="heading">
@@ -33,6 +33,17 @@ function Feedback({
           turn
         </h2>
         <p className="info-wrapper">{info}</p>
+      </>
+    );
+  } else if (winner) {
+    message = (
+      <>
+        <h2 className="heading">
+          {winner}
+          {' '}
+          wins!
+        </h2>
+        <small className="info-wrapper">Click below to rematch</small>
       </>
     );
   }
@@ -44,6 +55,7 @@ Feedback.propTypes = {
   info: PropTypes.string,
   player1Turn: PropTypes.bool,
   players: PropTypes.number,
+  winner: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 Feedback.defaultProps = {
@@ -51,6 +63,7 @@ Feedback.defaultProps = {
   info: '',
   player1Turn: true,
   players: 0,
+  winner: false,
 };
 
 export default Feedback;

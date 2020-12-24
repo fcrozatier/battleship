@@ -11,12 +11,13 @@ const useGame = () => {
   const [player1Turn, setPlayer1Turn] = useState(true);
   const [message, setMessage] = useState('');
 
-  // const reset = () => {
-  //   setPlayers(0);
-  //   setGameboards(0);
-  //   setPlayer1Turn(true);
-  //   setWinner(false);
-  // };
+  const reset = () => {
+    setPlayers(0);
+    setGameboards(0);
+    setPlayer1(Player('Player1'));
+    setPlayer2(Player(players === 2 ? 'Player2' : 'AI'));
+    setPlayer1Turn(true);
+  };
 
   const switchPlayers = () => {
     setPlayer1Turn((prev) => !prev);
@@ -48,6 +49,7 @@ const useGame = () => {
       player1,
       player2,
       player1Turn,
+      reset,
       setGameboards,
       setPlayers,
       setPlayer1,

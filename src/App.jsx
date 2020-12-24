@@ -19,6 +19,7 @@ function App() {
       player1,
       player2,
       player1Turn,
+      reset,
       setGameboards,
       setPlayers,
       setPlayer1,
@@ -27,6 +28,11 @@ function App() {
     },
     setGame,
   ] = useGame();
+
+  const initializeGame = (num) => {
+    reset();
+    setPlayers(num);
+  };
 
   const handleBoardInit = (player, gameboard) => {
     setGameboards(player);
@@ -48,7 +54,7 @@ function App() {
       />
 
       {/* If number of players is not set or there is a winner */}
-      {!players && <ChoosePlayers onClick={setPlayers} />}
+      {!players && <ChoosePlayers onClick={initializeGame} />}
 
       {/* If the number of initialized boards does not equal the number of players */}
       {!!players && gameboards !== players && (
@@ -70,8 +76,7 @@ function App() {
       )}
 
       {/* When there is a winner */}
-      {winner()
-        && <ChoosePlayers onClick={setPlayers} />}
+      {winner() && <ChoosePlayers onClick={initializeGame} />}
     </div>
   );
 }

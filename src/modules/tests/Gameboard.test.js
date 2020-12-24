@@ -127,16 +127,13 @@ test('receive attack', () => {
   gameboard.position(2, ship);
   gameboard.receiveAttack(0);
   expect(gameboard.hits).toEqual([0]);
-  expect(gameboard.hitUnits).toEqual([]);
 
   gameboard.receiveAttack(2);
   expect(gameboard.hits).toEqual([0, 2]);
-  expect(gameboard.hitUnits).toEqual([2]);
   expect(ship.isSunk()).toBeFalsy();
 
   gameboard.receiveAttack(3);
   expect(gameboard.hits).toEqual([0, 2, 3]);
-  expect(gameboard.hitUnits).toEqual([2, 3]);
   expect(ship.isSunk()).toBeTruthy();
 });
 

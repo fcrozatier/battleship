@@ -3,7 +3,6 @@ import Ship from './Ship';
 
 export default (size = 10) => {
   const hits = [];
-  const hitUnits = [];
   const fleet = [];
 
   const createBoard = () => {
@@ -187,7 +186,6 @@ export default (size = 10) => {
         && index <= unit.index + unit.ship.length - 1
       ) {
         unit.ship.hit();
-        hitUnits.push(index);
       }
       if (
         unit.v
@@ -196,7 +194,6 @@ export default (size = 10) => {
         && index <= unit.index + (unit.ship.length - 1) * size
       ) {
         unit.ship.hit();
-        hitUnits.push(index);
       }
     }
     hits.push(index);
@@ -244,7 +241,6 @@ export default (size = 10) => {
     fleet,
     fleetSunk,
     hits,
-    hitUnits,
     position,
     positionAtRandom,
     receiveAttack,

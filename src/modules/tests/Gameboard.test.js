@@ -168,3 +168,13 @@ test('ships left', () => {
   gameboard.receiveAttack(1);
   expect(gameboard.shipsLeft()).toBe(0);
 });
+
+test('unit indices', () => {
+  const gameboard = Gameboard(2);
+  const ship1 = Ship(2);
+  const ship2 = Ship(1);
+  gameboard.position(0, ship1);
+  gameboard.position(2, ship2);
+
+  expect(gameboard.unitIndices()).toEqual([0, 1, 2]);
+});

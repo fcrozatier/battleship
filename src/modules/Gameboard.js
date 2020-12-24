@@ -210,6 +210,17 @@ export default (size = 10) => {
     fleet.length,
   );
 
+  const unitIndices = () => {
+    const positions = [];
+    fleet.forEach((unit) => {
+      for (let i = 0; i < unit.ship.length; i += 1) {
+        const index = unit.v ? unit.index + i * size : unit.index + i;
+        positions.push(index);
+      }
+    });
+    return positions;
+  };
+
   // default config
   if (size >= 7) {
     const carrier = Ship(5, 'carrier');
@@ -240,5 +251,6 @@ export default (size = 10) => {
     reposition,
     rotate,
     shipsLeft,
+    unitIndices,
   };
 };

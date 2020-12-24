@@ -6,12 +6,12 @@ import Gameboard from '../modules/Gameboard';
 const Board = ({
   boardInit,
   dnd,
-  // eslint-disable-next-line no-unused-vars
-  fleet,
+  gameboardProp,
+  gameboards,
   hits,
   onClick,
 }) => {
-  const [gameboard, setGameboard] = useState(Gameboard());
+  const [gameboard, setGameboard] = useState(gameboardProp);
 
   const handleDrop = (i, id) => {
     setGameboard({ ...gameboard, fleet: gameboard.reposition(i, id) });
@@ -37,6 +37,7 @@ const Board = ({
             onClick(i);
           }
         }}
+        dnd={dnd}
         onDrop={(id) => handleDrop(i, id)}
         onCanDrop={(id) => gameboard.canReposition(i, id)}
         onCanRotate={(id) => gameboard.canRotate(id)}
@@ -56,7 +57,11 @@ const Board = ({
             Random
           </button>
 
-          <button className="btn" type="button" onClick={() => boardInit(gameboard)}>
+          <button
+            className="btn"
+            type="button"
+            onClick={() => boardInit(gameboards + 1, gameboard)}
+          >
             Continue
           </button>
         </div>
@@ -66,9 +71,13 @@ const Board = ({
 };
 
 Board.propTypes = {
+  // run this function to initialize
   boardInit: PropTypes.func,
   dnd: PropTypes.bool,
-  fleet: PropTypes.arrayOf(PropTypes.object),
+  // eslint-disable-next-line react/forbid-prop-types
+  gameboardProp: PropTypes.object,
+  // number of gameboards initialized
+  gameboards: PropTypes.number,
   hits: PropTypes.arrayOf(PropTypes.number),
   onClick: PropTypes.func,
 };
@@ -76,7 +85,8 @@ Board.propTypes = {
 Board.defaultProps = {
   boardInit: () => {},
   dnd: false,
-  fleet: [],
+  gameboards: 0,
+  gameboardProp: Gameboard(),
   hits: [],
   onClick: () => {},
 };

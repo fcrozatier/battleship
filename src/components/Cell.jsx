@@ -8,6 +8,7 @@ function Cell({
   value,
   hit,
   onClick,
+  dnd,
   onDrop,
   onCanDrop,
   onCanRotate,
@@ -44,6 +45,7 @@ function Cell({
     >
       {value !== null && (
         <Ship
+          dnd={dnd}
           unit={value}
           hit={hit}
           canRotate={onCanRotate(value.ship.id)}
@@ -59,6 +61,7 @@ Cell.propTypes = {
   value: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   hit: PropTypes.bool,
   onClick: PropTypes.func,
+  dnd: PropTypes.bool,
   onCanDrop: PropTypes.func,
   onCanRotate: PropTypes.func,
   onDrop: PropTypes.func,
@@ -68,6 +71,7 @@ Cell.propTypes = {
 Cell.defaultProps = {
   value: false,
   hit: false,
+  dnd: false,
   onClick: () => {},
   onCanDrop: () => {},
   onCanRotate: () => {},

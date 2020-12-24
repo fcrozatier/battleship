@@ -5,7 +5,7 @@ import { GiNuclearBomb } from 'react-icons/gi';
 import { GrRotateLeft } from 'react-icons/gr';
 
 function Ship({
-  hit, unit, canRotate, rotate,
+  dnd, hit, unit, canRotate, rotate,
 }) {
   const classes = hit ? 'ship hit' : 'ship';
   const style = unit.v
@@ -22,14 +22,11 @@ function Ship({
     item: { type: 'ship', id: unit.ship.id },
   });
 
+  const dndFeatures = dnd ? { ref: drag, onDoubleClick: () => rotate() } : {};
+
   return (
-    <div
-      style={style}
-      className={classes}
-      ref={drag}
-      onDoubleClick={() => rotate()}
-    >
-      {canRotate && (
+    <div style={style} className={classes} {...dndFeatures}>
+      {dnd && canRotate && (
         <GrRotateLeft
           style={{ marginLeft: '8px', marginTop: '8px', fontSize: '24px' }}
         />
@@ -40,6 +37,7 @@ function Ship({
 }
 
 Ship.propTypes = {
+  dnd: PropTypes.bool,
   canRotate: bool,
   hit: PropTypes.bool,
   rotate: PropTypes.func,
@@ -52,6 +50,7 @@ Ship.propTypes = {
 };
 
 Ship.defaultProps = {
+  dnd: false,
   canRotate: false,
   hit: false,
   rotate: () => {},

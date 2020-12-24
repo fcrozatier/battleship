@@ -6,7 +6,6 @@ const useGame = (players, gameboard1, gameboard2) => {
   const [player2, setPlayer2] = useState(
     Player(players === 2 ? 'Player 2' : 'AI', gameboard2),
   );
-  const [bot, setBot] = useState(Player(true, 'AI'));
 
   const calculateWinner = () => {
     if (player2.hasLost()) return player1;
@@ -15,19 +14,18 @@ const useGame = (players, gameboard1, gameboard2) => {
   };
 
   const setGame = (index) => {
-    const botPass = !player1.validAttack(player2, index);
+    const player2Pass = !player1.validAttack(player2, index);
     if (players === 2) {
       setPlayer2({ ...player2, gameboard: player1.attack(player2, index) });
-      setPlayer1({ ...player1, gameboard: player2.attack(player1, botPass) });
+      setPlayer1({ ...player1, gameboard: player2.attack(player1, player2Pass) });
     } else {
-      setBot({ ...bot, gameboard: player1.attack(bot, index) });
-      setPlayer1({ ...player1, gameboard: bot.attack(player1, botPass) });
+      setPlayer2({ ...player2, gameboard: player1.attack(player2, index) });
+      setPlayer1({ ...player1, gameboard: player2.attack(player1, player2Pass) });
     }
   };
 
   return [
     {
-      bot,
       player1,
       player2,
       calculateWinner,

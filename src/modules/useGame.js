@@ -34,11 +34,16 @@ const useGame = () => {
       const gameEnded = !!winner();
       const player2Pass = !player1.validAttack(player2, index) || gameEnded;
       setMessage(player2Pass ? 'Try again!' : '');
-      setPlayer2({ ...player2, gameboard: player1.attack(player2, index, gameEnded) });
-      setPlayer1({
-        ...player1,
-        gameboard: player2.attack(player1, player2Pass),
+      setPlayer2({
+        ...player2,
+        gameboard: player1.attack(player2, index, gameEnded),
       });
+      setTimeout(() => {
+        setPlayer1({
+          ...player1,
+          gameboard: player2.attack(player1, player2Pass),
+        });
+      }, 1000);
     }
   };
 

@@ -186,6 +186,8 @@ export default (size = 10) => {
         && index <= unit.index + unit.ship.length - 1
       ) {
         unit.ship.hit();
+        hits.push(index);
+        return unit.ship.id;
       }
       if (
         unit.v
@@ -194,11 +196,15 @@ export default (size = 10) => {
         && index <= unit.index + (unit.ship.length - 1) * size
       ) {
         unit.ship.hit();
+        hits.push(index);
+        return unit.ship.id;
       }
     }
     hits.push(index);
-    return hits;
+    return false;
   };
+
+  const isSunk = (shipId) => fleet.find((unit) => unit.ship.id === shipId).ship.isSunk();
 
   const fleetSunk = () => fleet.every((unit) => unit.ship.isSunk());
 
@@ -241,6 +247,7 @@ export default (size = 10) => {
     fleet,
     fleetSunk,
     hits,
+    isSunk,
     position,
     positionAtRandom,
     receiveAttack,

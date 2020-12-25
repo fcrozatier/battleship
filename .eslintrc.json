@@ -25,6 +25,7 @@
       {
         "html": "ignore"
       }
-    ]
+    ],
+    "no-return-assign": "error"
   }
 }

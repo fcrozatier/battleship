@@ -84,7 +84,9 @@ export default (id = Math.random() * 10, gameboard = Gameboard()) => {
     while (isLandedCell(inf)) {
       inf -= direction;
     }
-    return remainingSlots.includes(inf) ? inf : sup;
+    if (remainingSlots.includes(inf)) return inf;
+    if (remainingSlots.includes(sup)) return sup;
+    return pickAdjacent(inf + direction);
   };
 
   function AIAttack(player, pass) {

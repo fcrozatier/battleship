@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-function Feedback({
-  players, gameboards, info, player1Turn, winner,
-}) {
+function Feedback({ players, gameboards, info, player1Turn, winner }) {
   let message;
   if (!players) {
     message = <h2 className="heading">Battlefied</h2>;
@@ -13,7 +11,7 @@ function Feedback({
         <h2 className="heading">
           Player
           {gameboards + 1}
-          {': '}
+          {": "}
           place your ships
         </h2>
         <div className="info-wrapper">
@@ -29,7 +27,7 @@ function Feedback({
       <>
         <h2 className="heading">
           Player
-          {player1Turn ? '1 ' : '2 '}
+          {player1Turn ? "1 " : "2 "}
           turn
         </h2>
         <p className="info-wrapper">{info}</p>
@@ -38,11 +36,7 @@ function Feedback({
   } else if (winner) {
     message = (
       <>
-        <h2 className="heading">
-          {winner}
-          {' '}
-          wins!
-        </h2>
+        <h2 className="heading">{`${winner} wins`}</h2>
         <small className="info-wrapper">Click below to rematch</small>
       </>
     );
@@ -60,7 +54,7 @@ Feedback.propTypes = {
 
 Feedback.defaultProps = {
   gameboards: 0,
-  info: '',
+  info: "",
   player1Turn: true,
   players: 0,
   winner: false,

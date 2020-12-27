@@ -6,6 +6,7 @@
   },
   "extends": [
     "airbnb",
+    "prettier",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jest/recommended",
@@ -18,7 +19,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "jest"],
+  "plugins": ["react", "jest", "prettier"],
   "rules": {
     "react/jsx-props-no-spreading": [
       2,
@@ -26,6 +27,8 @@
         "html": "ignore"
       }
     ],
-    "no-return-assign": "error"
+    "no-return-assign": "error",
+    "prettier/prettier": "error",
+    "no-console": "warn"
   }
 }

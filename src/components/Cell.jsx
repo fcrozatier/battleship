@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDrop } from 'react-dnd';
-import Ship from './Ship';
+import React from "react";
+import PropTypes from "prop-types";
+import { useDrop } from "react-dnd";
+import Ship from "./Ship";
 
 function Cell({
   unit,
@@ -15,7 +15,7 @@ function Cell({
   onRotate,
 }) {
   const [{ canDrop, isOver }, drop] = useDrop({
-    accept: 'ship',
+    accept: "ship",
     drop: (item) => {
       onDrop(item.id);
     },
@@ -26,15 +26,15 @@ function Cell({
     }),
   });
 
-  let classes = 'cell';
-  classes += drawShip ? ' draw-ship' : '';
-  classes += hit ? ' hit' : '';
+  let classes = "cell";
+  classes += drawShip ? " draw-ship" : "";
+  classes += hit ? " hit" : "";
 
   const style = {
-    backgroundColor: canDrop && 'rgb(248, 249, 231)',
+    backgroundColor: canDrop && "rgb(248, 249, 231)",
     border:
-      (isOver && canDrop && '1px solid green')
-      || (isOver && !canDrop && '1px solid red'),
+      (isOver && canDrop && "1px solid green") ||
+      (isOver && !canDrop && "1px solid red"),
   };
 
   return (

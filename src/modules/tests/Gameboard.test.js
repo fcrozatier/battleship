@@ -1,7 +1,7 @@
-import Gameboard from '../Gameboard';
-import Ship from '../Ship';
+import Gameboard from "../Gameboard";
+import Ship from "../Ship";
 
-test('position ships horizontally', () => {
+test("position ships horizontally", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(1);
   gameboard.position(1, ship);
@@ -13,7 +13,7 @@ test('position ships horizontally', () => {
   expect(gameboard2.fleet[0].index).toEqual(2);
 });
 
-test('position ships vertically', () => {
+test("position ships vertically", () => {
   const gameboard = Gameboard(3);
   const ship = Ship(2);
   gameboard.position(4, ship, true);
@@ -25,7 +25,7 @@ test('position ships vertically', () => {
   expect(gameboard.fleet[0].v).toBeTruthy();
 });
 
-test('cannot position outside grid', () => {
+test("cannot position outside grid", () => {
   const gameboard = Gameboard(1);
   const ship = Ship(1);
   expect(gameboard.position(1, ship)).toBeFalsy();
@@ -35,7 +35,7 @@ test('cannot position outside grid', () => {
   expect(gameboard.fleet).toHaveLength(0);
 });
 
-test('cannot wrap position', () => {
+test("cannot wrap position", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(1, ship);
@@ -55,73 +55,73 @@ test("can't overlap ships", () => {
   expect(gameboard.fleet).toHaveLength(1);
 });
 
-test('can reposition ships', () => {
+test("can reposition ships", () => {
   const gameboard = Gameboard(4);
-  const ship = Ship(1, 'kanoe');
+  const ship = Ship(1, "kanoe");
   gameboard.position(0, ship);
   expect(gameboard.fleet[0].index).toBe(0);
 
-  gameboard.reposition(1, 'kanoe');
+  gameboard.reposition(1, "kanoe");
   expect(gameboard.fleet).toHaveLength(1);
   expect(gameboard.fleet[0].index).toBe(1);
 });
 
-test('cannot reposition over ships', () => {
+test("cannot reposition over ships", () => {
   const gameboard = Gameboard(2);
-  const ship = Ship(1, 'kanoe');
-  const ship2 = Ship(2, 'patrol');
+  const ship = Ship(1, "kanoe");
+  const ship2 = Ship(2, "patrol");
   gameboard.position(0, ship2);
   gameboard.position(2, ship);
 
-  gameboard.reposition(0, 'kanoe');
-  expect(gameboard.fleet.find((u) => u.ship.id === 'kanoe').index).toBe(2);
+  gameboard.reposition(0, "kanoe");
+  expect(gameboard.fleet.find((u) => u.ship.id === "kanoe").index).toBe(2);
 });
 
-test('can reposition over itself', () => {
+test("can reposition over itself", () => {
   const gameboard = Gameboard(4);
-  const ship = Ship(2, 'kanoe');
+  const ship = Ship(2, "kanoe");
   gameboard.position(0, ship);
-  gameboard.reposition(1, 'kanoe');
-  const unit = gameboard.fleet.find((u) => u.ship.id === 'kanoe');
+  gameboard.reposition(1, "kanoe");
+  const unit = gameboard.fleet.find((u) => u.ship.id === "kanoe");
 
   expect(unit.index).toBe(1);
 });
 
-test('reposition keeps verticality', () => {
+test("reposition keeps verticality", () => {
   const gameboard = Gameboard(2);
-  const ship = Ship(2, 'kanoe');
+  const ship = Ship(2, "kanoe");
   gameboard.position(0, ship, true);
 
-  gameboard.reposition(1, 'kanoe');
+  gameboard.reposition(1, "kanoe");
   expect(gameboard.fleet[0].index).toBe(1);
   expect(gameboard.fleet[0].v).toBeTruthy();
 });
 
-test('can rotate', () => {
+test("can rotate", () => {
   const gameboard = Gameboard(2);
-  const ship = Ship(2, 'kanoe');
-  const ship2 = Ship(2, 'kayak');
+  const ship = Ship(2, "kanoe");
+  const ship2 = Ship(2, "kayak");
   gameboard.position(0, ship, true);
 
-  expect(gameboard.canRotate('kanoe')).toBeTruthy();
+  expect(gameboard.canRotate("kanoe")).toBeTruthy();
   gameboard.position(1, ship2, true);
-  expect(gameboard.canRotate('kanoe')).toBeFalsy();
+  expect(gameboard.canRotate("kanoe")).toBeFalsy();
 });
 
-test('rotate', () => {
+test("rotate", () => {
   const gameboard = Gameboard(2);
-  const ship = Ship(2, 'kanoe');
+  const ship = Ship(2, "kanoe");
   gameboard.position(0, ship, true);
-  gameboard.rotate('kanoe');
+  gameboard.rotate("kanoe");
   expect(gameboard.fleet[0].v).toBeFalsy();
 
-  const ship2 = Ship(2, 'kayak');
+  const ship2 = Ship(2, "kayak");
   gameboard.position(2, ship2);
-  gameboard.rotate('kayak');
-  expect(gameboard.fleet.filter((x) => x.id === 'kayak').v).toBeFalsy();
+  gameboard.rotate("kayak");
+  expect(gameboard.fleet.filter((x) => x.id === "kayak").v).toBeFalsy();
 });
 
-test('receive attack', () => {
+test("receive attack", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, ship);
@@ -137,7 +137,7 @@ test('receive attack', () => {
   expect(ship.isSunk()).toBeTruthy();
 });
 
-test('fleet sunk', () => {
+test("fleet sunk", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2);
   gameboard.position(2, ship);
@@ -152,7 +152,7 @@ test('fleet sunk', () => {
   expect(gameboard2.fleetSunk()).toBeFalsy();
 });
 
-test('ships left', () => {
+test("ships left", () => {
   const gameboard = Gameboard(2);
   const ship1 = Ship(1);
   const ship2 = Ship(1);
@@ -166,7 +166,7 @@ test('ships left', () => {
   expect(gameboard.shipsLeft()).toBe(0);
 });
 
-test('unit indices', () => {
+test("unit indices", () => {
   const gameboard = Gameboard(2);
   const ship1 = Ship(2);
   const ship2 = Ship(1);

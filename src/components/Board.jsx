@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Cell from './Cell';
-import Gameboard from '../modules/Gameboard';
+import React from "react";
+import PropTypes from "prop-types";
+import Cell from "./Cell";
+import Gameboard from "../modules/Gameboard";
 
-const Board = ({
-  boardInit, dnd, gameboard, onClick, updateBoard,
-}) => {
+const Board = ({ boardInit, dnd, gameboard, onClick, updateBoard }) => {
   const handleDrop = (i, id) => {
     updateBoard({ ...gameboard, fleet: gameboard.reposition(i, id) });
   };
@@ -41,7 +39,7 @@ const Board = ({
 
   return (
     <>
-      <div className={`board-grid ${dnd ? 'dnd-board' : ''}`}>
+      <div className={`board-grid ${dnd ? "dnd-board" : ""}`}>
         {drawBoard()}
       </div>
       {dnd && (

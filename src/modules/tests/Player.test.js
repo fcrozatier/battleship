@@ -1,22 +1,22 @@
-import Player from '../Player';
+import Player from "../Player";
 
-let bot = Player('AI');
-let human = Player('Player');
+let bot = Player("AI");
+let human = Player("Player");
 
 beforeEach(() => {
-  bot = Player('AI');
-  human = Player('Player');
+  bot = Player("AI");
+  human = Player("Player");
 });
 
-test('create Player', () => {
+test("create Player", () => {
   expect(bot.gameboard.fleet).toHaveLength(5);
   expect(human.gameboard.fleet).toHaveLength(5);
-  expect(bot.name).toBe('AI');
-  expect(human.name).toBe('Player');
+  expect(bot.name).toBe("AI");
+  expect(human.name).toBe("Player");
   expect(bot.hasLost()).toBeFalsy();
 });
 
-test('attack position', () => {
+test("attack position", () => {
   bot.attack(human);
   expect(human.gameboard.hits).toHaveLength(1);
 
@@ -24,7 +24,7 @@ test('attack position', () => {
   expect(bot.gameboard.hits).toHaveLength(1);
 });
 
-test('track hits', () => {
+test("track hits", () => {
   expect(human.gameboard.hits).toEqual([]);
   human.attack(bot, 11);
   human.attack(bot, 13);
@@ -38,7 +38,7 @@ test("can't attack same position twice", () => {
   expect(bot.gameboard.hits).toHaveLength(1);
 });
 
-test('can pass', () => {
+test("can pass", () => {
   bot.attack(human);
   bot.attack(human, true);
   bot.attack(human, false);
@@ -50,7 +50,7 @@ test('can pass', () => {
   expect(bot.gameboard.hits).toHaveLength(2);
 });
 
-test('loses when the fleet is sunk', () => {
+test("loses when the fleet is sunk", () => {
   expect(bot.hasLost()).toBeFalsy();
   for (let i = 0; i < 100; i += 1) {
     human.attack(bot, i);

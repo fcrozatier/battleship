@@ -1,7 +1,7 @@
-import Gameboard from './Gameboard';
+import Gameboard from "./Gameboard";
 
 export default (id = Math.random() * 10, gameboard = Gameboard()) => {
-  const isBot = id === 'AI';
+  const isBot = id === "AI";
   const name = id;
   const remainingSlots = Array.from(new Array(100).keys());
   const landedHits = {};
@@ -23,7 +23,9 @@ export default (id = Math.random() * 10, gameboard = Gameboard()) => {
 
   const landedIndices = () => {
     const landed = [];
-    Object.values(landedHits).forEach((arr) => arr.forEach((val) => landed.push(val)));
+    Object.values(landedHits).forEach((arr) =>
+      arr.forEach((val) => landed.push(val)),
+    );
     return landed;
   };
 
@@ -41,7 +43,8 @@ export default (id = Math.random() * 10, gameboard = Gameboard()) => {
     return false;
   };
 
-  const pickRandom = () => remainingSlots[Math.floor(Math.random() * remainingSlots.length)];
+  const pickRandom = () =>
+    remainingSlots[Math.floor(Math.random() * remainingSlots.length)];
 
   const pickAdjacent = () => {
     let directions = [-1, 1, -10, 10];
@@ -66,7 +69,8 @@ export default (id = Math.random() * 10, gameboard = Gameboard()) => {
       if (randomLanded % 10 === 9) {
         directions = directions.filter((el) => el !== 1);
       }
-      const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+      const randomDirection =
+        directions[Math.floor(Math.random() * directions.length)];
       i = randomLanded + randomDirection;
     } while (!remainingSlots.includes(i));
     return i;

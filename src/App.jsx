@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Board from './components/Board';
-import useGame from './modules/useGame';
-import ChoosePlayers from './components/ChoosePlayers';
-import Feedback from './components/Feedback';
-import Player from './modules/Player';
-import DashBoard from './components/DashBoard';
-import './app.css';
+import React, { useState } from "react";
+import Board from "./components/Board";
+import useGame from "./modules/useGame";
+import ChoosePlayers from "./components/ChoosePlayers";
+import Feedback from "./components/Feedback";
+import Player from "./modules/Player";
+import DashBoard from "./components/DashBoard";
+import "./app.css";
 
 function App() {
   const [

@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import Ship from './Ship';
+import Ship from "./Ship";
 
 export default (size = 10) => {
   const hits = [];
@@ -30,31 +30,31 @@ export default (size = 10) => {
           return false;
         }
         if (
-          unit.index <= endIdx
-          && unit.index + unit.ship.length - 1 >= endIdx
+          unit.index <= endIdx &&
+          unit.index + unit.ship.length - 1 >= endIdx
         ) {
           return false;
         }
       } else if (unit.ship.id !== ship.id && unit.v) {
         // for other vertical, their head modulo size should not be in the middle of ship
         if (
-          unit.index <= index
-          && unit.index + (unit.ship.length - 1) * size >= index
+          unit.index <= index &&
+          unit.index + (unit.ship.length - 1) * size >= index
         ) {
           if (
-            index % size <= unit.index % size
-            && endIdx % size >= unit.index % size
+            index % size <= unit.index % size &&
+            endIdx % size >= unit.index % size
           ) {
             return false;
           }
         }
         if (
-          unit.index <= endIdx
-          && unit.index + (unit.ship.length - 1) * size >= endIdx
+          unit.index <= endIdx &&
+          unit.index + (unit.ship.length - 1) * size >= endIdx
         ) {
           if (
-            index % size <= unit.index % size
-            && endIdx % size >= unit.index % size
+            index % size <= unit.index % size &&
+            endIdx % size >= unit.index % size
           ) {
             return false;
           }
@@ -79,14 +79,14 @@ export default (size = 10) => {
       if (unit.ship.id !== ship.id && unit.v) {
         if (unit.index % size === index % size) {
           if (
-            unit.index <= index
-            && unit.index + (unit.ship.length - 1) * size >= index
+            unit.index <= index &&
+            unit.index + (unit.ship.length - 1) * size >= index
           ) {
             return false;
           }
           if (
-            unit.index <= end
-            && unit.index + (unit.ship.length - 1) * size >= end
+            unit.index <= end &&
+            unit.index + (unit.ship.length - 1) * size >= end
           ) {
             return false;
           }
@@ -95,19 +95,19 @@ export default (size = 10) => {
         // for other horizontal, their head or tail modulo size should not surround index
         if (index <= unit.index && unit.index <= end) {
           if (
-            unit.index % size <= index % size
-            && index % size <= (unit.index + unit.ship.length - 1) % size
+            unit.index % size <= index % size &&
+            index % size <= (unit.index + unit.ship.length - 1) % size
           ) {
             return false;
           }
         }
         if (
-          index <= unit.index + unit.ship.length - 1
-          && unit.index + unit.ship.length - 1 <= end
+          index <= unit.index + unit.ship.length - 1 &&
+          unit.index + unit.ship.length - 1 <= end
         ) {
           if (
-            unit.index % size <= index % size
-            && index % size <= (unit.index + unit.ship.length - 1) % size
+            unit.index % size <= index % size &&
+            index % size <= (unit.index + unit.ship.length - 1) % size
           ) {
             return false;
           }
@@ -181,19 +181,19 @@ export default (size = 10) => {
   const receiveAttack = (index) => {
     for (const unit of fleet) {
       if (
-        !unit.v
-        && unit.index <= index
-        && index <= unit.index + unit.ship.length - 1
+        !unit.v &&
+        unit.index <= index &&
+        index <= unit.index + unit.ship.length - 1
       ) {
         unit.ship.hit();
         hits.push(index);
         return unit.ship.id;
       }
       if (
-        unit.v
-        && index % size === unit.index % size
-        && unit.index <= index
-        && index <= unit.index + (unit.ship.length - 1) * size
+        unit.v &&
+        index % size === unit.index % size &&
+        unit.index <= index &&
+        index <= unit.index + (unit.ship.length - 1) * size
       ) {
         unit.ship.hit();
         hits.push(index);
@@ -204,14 +204,16 @@ export default (size = 10) => {
     return false;
   };
 
-  const isSunk = (shipId) => fleet.find((unit) => unit.ship.id === shipId).ship.isSunk();
+  const isSunk = (shipId) =>
+    fleet.find((unit) => unit.ship.id === shipId).ship.isSunk();
 
   const fleetSunk = () => fleet.every((unit) => unit.ship.isSunk());
 
-  const shipsLeft = () => fleet.reduce(
-    (partial, current) => partial - current.ship.isSunk(),
-    fleet.length,
-  );
+  const shipsLeft = () =>
+    fleet.reduce(
+      (partial, current) => partial - current.ship.isSunk(),
+      fleet.length,
+    );
 
   const unitIndices = () => {
     const positions = [];
@@ -226,11 +228,11 @@ export default (size = 10) => {
 
   // default config
   if (size >= 7) {
-    const carrier = Ship(5, 'carrier');
-    const battleship = Ship(4, 'battleship');
-    const destroyer = Ship(3, 'destroyer');
-    const submarine = Ship(3, 'submarine');
-    const patrol = Ship(2, 'patrol');
+    const carrier = Ship(5, "carrier");
+    const battleship = Ship(4, "battleship");
+    const destroyer = Ship(3, "destroyer");
+    const submarine = Ship(3, "submarine");
+    const patrol = Ship(2, "patrol");
 
     position(22, carrier, true);
     position(4, battleship);

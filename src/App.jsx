@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Board from './components/Board';
 import useGame from './modules/useGame';
 import ChoosePlayers from './components/ChoosePlayers';
@@ -25,6 +25,8 @@ function App() {
     },
     setGame,
   ] = useGame();
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState();
 
   const initializeGame = (num) => {
     reset(num);
@@ -41,8 +43,23 @@ function App() {
     if (players === 2) switchPlayers();
   };
 
+  const countingDown = () => {
+    setLoading(true);
+    setCount(2);
+
+    const counterId = setInterval(() => {
+      setCount((prev) => prev - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      setLoading(false);
+      clearInterval(counterId);
+    }, 2000);
+  };
+
   const handleClick = (index) => {
     setGame(index);
+    if (players === 2) countingDown();
   };
 
   return (
@@ -70,7 +87,7 @@ function App() {
       )}
 
       {/* Main game phase */}
-      {!!players && gameboards === players && (
+      {!!players && gameboards === players && !loading && (
         <DashBoard
           player1={player1}
           player2={player2}
@@ -78,6 +95,9 @@ function App() {
           handleClick={handleClick}
         />
       )}
+
+      {/* When loading */}
+      {loading && <div>{`in ${count} s`}</div>}
 
       {/* When there is a winner */}
       {winner() && <ChoosePlayers onClick={initializeGame} />}

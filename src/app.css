@@ -14,8 +14,9 @@
 }
 
 .btn-wrapper {
+  width: 100%;
   margin-top: 20px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,8 +64,12 @@
 
 .display-boards {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   gap: 50px;
+}
+
+.display-boards .ship {
+  display: none;
 }
 
 .board-grid {
@@ -77,6 +82,18 @@
   justify-content: center;
 }
 
+.my-board {
+  pointer-events: none;
+}
+
+.enemy-board .cell {
+  cursor: pointer;
+}
+
+.enemy-board .cell.hit {
+  cursor: initial;
+}
+
 .cell {
   background-color: var(--bg);
   display: flex;
@@ -86,27 +103,11 @@
   position: relative;
 }
 
-.my-board {
-  pointer-events: none;
-}
-
-.enemy-board {
-  cursor: pointer;
-}
-
-.enemy-board .cell.hit {
-  cursor: initial;
-}
-
 .ship {
   position: absolute;
   top: -1px;
   left: -1px;
   z-index: 1;
-}
-
-.display-boards .ship {
-  display: none;
 }
 
 .dnd-board .ship,

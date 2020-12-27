@@ -58,8 +58,10 @@ function App() {
   };
 
   const handleClick = (index) => {
-    setGame(index);
-    if (players === 2) countingDown();
+    if (!winner()) {
+      setGame(index);
+      if (players === 2) countingDown();
+    }
   };
 
   return (
@@ -97,7 +99,7 @@ function App() {
       )}
 
       {/* When loading */}
-      {loading && <div>{`in ${count} s`}</div>}
+      {loading && !winner() && <div>{`in ${count}s`}</div>}
 
       {/* When there is a winner */}
       {winner() && <ChoosePlayers onClick={initializeGame} />}

@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
 import Gameboard from '../modules/Gameboard';
 
 const Board = ({
-  boardInit,
-  dnd,
-  gameboardProp,
-  gameboards,
-  onClick,
+  boardInit, dnd, gameboard, onClick, updateBoard,
 }) => {
-  const [gameboard, setGameboard] = useState(gameboardProp);
-
   const handleDrop = (i, id) => {
-    setGameboard({ ...gameboard, fleet: gameboard.reposition(i, id) });
+    updateBoard({ ...gameboard, fleet: gameboard.reposition(i, id) });
   };
 
   const handleRotate = (id) => {
-    setGameboard({ ...gameboard, fleet: gameboard.rotate(id) });
+    updateBoard({ ...gameboard, fleet: gameboard.rotate(id) });
   };
 
   const handleRandom = () => {
-    setGameboard({ ...gameboard, fleet: gameboard.positionAtRandom() });
+    updateBoard({ ...gameboard, fleet: gameboard.randomize() });
   };
 
   const drawBoard = () => {
@@ -34,9 +28,7 @@ const Board = ({
         drawShip={gameboard.unitIndices().includes(i)}
         hit={hits.includes(i)}
         onClick={() => {
-          if (onClick) {
-            onClick(i);
-          }
+          onClick(i);
         }}
         dnd={dnd}
         onDrop={(id) => handleDrop(i, id)}
@@ -61,7 +53,7 @@ const Board = ({
           <button
             className="btn"
             type="button"
-            onClick={() => boardInit(gameboards + 1, gameboard)}
+            onClick={() => boardInit(gameboard)}
           >
             Continue
           </button>
@@ -72,22 +64,20 @@ const Board = ({
 };
 
 Board.propTypes = {
-  // run this function to initialize
   boardInit: PropTypes.func,
   dnd: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
-  gameboardProp: PropTypes.object,
-  // number of gameboards initialized
-  gameboards: PropTypes.number,
+  gameboard: PropTypes.object,
   onClick: PropTypes.func,
+  updateBoard: PropTypes.func,
 };
 
 Board.defaultProps = {
   boardInit: () => {},
   dnd: false,
-  gameboards: 0,
-  gameboardProp: Gameboard(),
+  gameboard: Gameboard(),
   onClick: () => {},
+  updateBoard: () => {},
 };
 
 export default Board;

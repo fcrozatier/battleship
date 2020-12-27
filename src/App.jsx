@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import Board from './components/Board';
-import Info from './components/Info';
 import useGame from './modules/useGame';
 import ChoosePlayers from './components/ChoosePlayers';
 import Feedback from './components/Feedback';
-import Gameboard from './modules/Gameboard';
 import Player from './modules/Player';
 import DashBoard from './components/DashBoard';
 import './app.css';
@@ -21,22 +18,27 @@ function App() {
       player1Turn,
       reset,
       setGameboards,
-      setPlayers,
       setPlayer1,
       setPlayer2,
+      switchPlayers,
       winner,
     },
     setGame,
   ] = useGame();
 
   const initializeGame = (num) => {
-    reset();
-    setPlayers(num);
+    reset(num);
   };
 
-  const handleBoardInit = (player, gameboard) => {
-    setGameboards(player);
-    setPlayer1(player === 1 ? Player('Player1', gameboard) : player1);
+  const updatePlayerBoard = (gameboard) => {
+    setPlayer1(player1Turn ? Player(player1.name, gameboard) : player1);
+    setPlayer2(player1Turn ? player2 : Player(player2.name, gameboard));
+  };
+
+  const saveBoard = (gameboard) => {
+    updatePlayerBoard(gameboard);
+    setGameboards((prev) => prev + 1);
+    if (players === 2) switchPlayers();
   };
 
   const handleClick = (index) => {
@@ -60,17 +62,19 @@ function App() {
       {!!players && gameboards !== players && (
         <Board
           dnd
-          boardInit={handleBoardInit}
           gameboards={gameboards}
-          gameboardProp={Gameboard()}
+          gameboard={player1Turn ? player1.gameboard : player2.gameboard}
+          updateBoard={updatePlayerBoard}
+          boardInit={saveBoard}
         />
       )}
 
-      {/* Main game phase (ONE PLAYER ONLY FOR NOW) */}
-      {players === 1 && gameboards === players && (
+      {/* Main game phase */}
+      {!!players && gameboards === players && (
         <DashBoard
           player1={player1}
           player2={player2}
+          player1Turn={player1Turn}
           handleClick={handleClick}
         />
       )}

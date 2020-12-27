@@ -11,11 +11,11 @@ const useGame = () => {
   const [player1Turn, setPlayer1Turn] = useState(true);
   const [message, setMessage] = useState('');
 
-  const reset = () => {
-    setPlayers(0);
+  const reset = (num) => {
+    setPlayers(num);
     setGameboards(0);
     setPlayer1(Player('Player1'));
-    setPlayer2(Player(players === 2 ? 'Player2' : 'AI'));
+    setPlayer2(Player(num === 2 ? 'Player2' : 'AI'));
     setPlayer1Turn(true);
   };
 
@@ -30,20 +30,29 @@ const useGame = () => {
   };
 
   const setGame = (index) => {
-    if (player1Turn) {
-      const gameEnded = !!winner();
+    const gameEnded = !!winner();
+    if (players === 1) {
       const player2Pass = !player1.validAttack(player2, index) || gameEnded;
       setMessage(player2Pass ? 'Try again!' : '');
       setPlayer2({
         ...player2,
         gameboard: player1.attack(player2, index, gameEnded),
       });
-      setTimeout(() => {
-        setPlayer1({
-          ...player1,
-          gameboard: player2.attack(player1, player2Pass),
-        });
-      }, 1000);
+      setPlayer1({
+        ...player1,
+        gameboard: player2.attack(player1, player2Pass),
+      });
+    } else if (players === 2) {
+      const playing = player1Turn ? player1 : player2;
+      const opponent = player1Turn ? player2 : player1;
+      const setMap = player1Turn ? setPlayer2 : setPlayer1;
+      const keepPlaying = !playing.validAttack(opponent, index);
+      setMessage(keepPlaying ? 'Try again!' : '');
+      setMap({
+        ...opponent,
+        gameboard: playing.attack(opponent, index, gameEnded),
+      });
+      if (!keepPlaying && !winner()) switchPlayers();
     }
   };
 

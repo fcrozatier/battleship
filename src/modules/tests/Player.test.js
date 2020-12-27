@@ -1,6 +1,4 @@
-import Gameboard from '../Gameboard';
 import Player from '../Player';
-import Ship from '../Ship';
 
 let bot = Player('AI');
 let human = Player('Player');

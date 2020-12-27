@@ -160,7 +160,7 @@ export default (size = 10) => {
     return fleet;
   };
 
-  const positionAtRandom = () => {
+  const randomize = () => {
     fleet.forEach((unit, idx) => {
       const v = !!Math.floor(Math.random() * 2);
       const map = v ? canVPosition : canHPosition;
@@ -175,7 +175,7 @@ export default (size = 10) => {
         fleet[idx].index = index;
       }
     });
-    return fleet;
+    return this;
   };
 
   const receiveAttack = (index) => {
@@ -237,7 +237,7 @@ export default (size = 10) => {
     position(55, destroyer);
     position(1, submarine, true);
     position(36, patrol, true);
-    positionAtRandom();
+    randomize();
   }
 
   return {
@@ -249,7 +249,7 @@ export default (size = 10) => {
     hits,
     isSunk,
     position,
-    positionAtRandom,
+    randomize,
     receiveAttack,
     reposition,
     rotate,

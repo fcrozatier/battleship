@@ -115,11 +115,13 @@
 .display-boards {
   display: flex;
   width: 100%;
+  padding: 0 20px;
   justify-content: space-evenly;
+  gap: 15px;
 }
 
 .display-boards .ship {
-  display: none;
+  pointer-events: none;
 }
 
 .board-grid {
@@ -212,7 +214,7 @@
 }
 
 .dnd-board .ship,
-.my-board .draw-ship {
+.my-board .ship {
   background-color: var(--ship);
 }
 
@@ -223,10 +225,16 @@
   height: 10px;
   border-radius: 50%;
   background-color: var(--bomb);
+  z-index: 1;
 }
 
 .draw-ship.hit {
-  background-color: var(--hit);
+  background-color: hsl(312 38% 95%);
+}
+
+.draw-ship.hit::after {
+  border: 1px solid #999;
+  background-color: hsl(49 81% 70%);
 }
 
 @media screen and (max-width: 1000px) {

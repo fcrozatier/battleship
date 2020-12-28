@@ -31,10 +31,10 @@ function Cell({
   classes += hit ? " hit" : "";
 
   const style = {
-    backgroundColor: canDrop && "rgb(248, 249, 231)",
-    border:
-      (isOver && canDrop && "1px solid green") ||
-      (isOver && !canDrop && "1px solid red"),
+    backgroundColor:
+      (!isOver && canDrop && "hsl(150deg 100% 98%)") ||
+      (isOver && canDrop && " hsl(150deg 100% 90%)") ||
+      (isOver && !canDrop && " hsl(0deg 100% 96%)"),
   };
 
   return (

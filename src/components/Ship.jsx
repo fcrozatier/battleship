@@ -1,17 +1,21 @@
 import React from "react";
 import { PropTypes, bool } from "prop-types";
 import { useDrag } from "react-dnd";
-import { GrRotateLeft } from "react-icons/gr";
+import { GiAnticlockwiseRotation } from "react-icons/gi";
 
 function Ship({ dnd, unit, canRotate, rotate }) {
   const style = unit.v
     ? {
-        width: "42px",
-        height: `${unit.ship.length * 41}px`,
+        width: "80%",
+        height: `${unit.ship.length * (40 + 3) - 10}px`,
+        top: "10%",
+        left: "10%",
       }
     : {
-        width: `${unit.ship.length * 41}px`,
-        height: "42px",
+        width: `${unit.ship.length * (40 + 3) - 10}px`,
+        height: "80%",
+        top: "10%",
+        left: "10%",
       };
 
   const [, drag] = useDrag({
@@ -23,8 +27,14 @@ function Ship({ dnd, unit, canRotate, rotate }) {
   return (
     <div style={style} className="ship" {...dndFeatures}>
       {dnd && canRotate && (
-        <GrRotateLeft
-          style={{ marginLeft: "8px", marginTop: "8px", fontSize: "24px" }}
+        <GiAnticlockwiseRotation
+          style={{
+            color: "#fff",
+            fontSize: "22px",
+            position: "relative",
+            top: "-3px",
+            left: "5px",
+          }}
         />
       )}
     </div>

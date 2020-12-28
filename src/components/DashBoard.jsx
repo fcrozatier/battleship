@@ -10,7 +10,9 @@ function DashBoard({ player1, player2, player1Turn, handleClick }) {
         <Board gameboard={player1.gameboard} onClick={handleClick} />
         <div className="info">
           Ships left:
-          {player1.gameboard.shipsLeft()}
+          <span style={{ color: "var(--alert)" }}>
+            {player1.gameboard.shipsLeft()}
+          </span>
         </div>
       </div>
       <div className={`${player1Turn ? "enemy-board" : "my-board"}`}>
@@ -18,7 +20,9 @@ function DashBoard({ player1, player2, player1Turn, handleClick }) {
         <Board gameboard={player2.gameboard} onClick={handleClick} />
         <div className="info">
           Ships left:
-          {player2.gameboard.shipsLeft()}
+          <span style={{ color: "var(--alert)" }}>
+            {player2.gameboard.shipsLeft()}
+          </span>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 :root {
   --bg: rgb(245 251 255);
   --text: #2a2a2a;
-  --ship: hsl(235 93% 70%);
+  --ship: hsl(235 90% 70%);
   --bomb: hsl(313 70% 65%);
-  --hit: hsl(240 80% 90%);
+  --hit: hsl(240 85% 90%);
   --info: hsl(235 80% 60%);
   --secondary: #119aff;
 }

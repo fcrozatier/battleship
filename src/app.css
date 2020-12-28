@@ -16,7 +16,6 @@
 .btn-wrapper {
   width: 100%;
   margin-top: 20px;
-  /* margin-left: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,17 +132,6 @@
   position: relative;
 }
 
-/* .board-grid::after {
-  position: absolute;
-  width: 100%;
-  word-spacing: 22.8px;
-  bottom: -20px;
-  left: 15px;
-  content: "1 2 3 4 5 6 7 8 9 10";
-  font-size: 10px;
-  color: var(--secondary);
-} */
-
 .board-grid::before {
   position: absolute;
   height: 100%;
@@ -163,45 +151,6 @@
   color: var(--secondary);
   font-size: 10px;
 }
-
-/* .board-grid .cell:nth-child(10n + 1)::before {
-  position: absolute;
-  top: calc(50% - 5px);
-  left: -20px;
-  color: var(--secondary);
-  font-size: 10px;
-} */
-
-/* .board-grid .cell:nth-child(1)::before {
-  content: "A";
-}
-.board-grid .cell:nth-child(11)::before {
-  content: "B";
-}
-.board-grid .cell:nth-child(21)::before {
-  content: "C";
-}
-.board-grid .cell:nth-child(31)::before {
-  content: "D";
-}
-.board-grid .cell:nth-child(41)::before {
-  content: "E";
-}
-.board-grid .cell:nth-child(51)::before {
-  content: "F";
-}
-.board-grid .cell:nth-child(61)::before {
-  content: "G";
-}
-.board-grid .cell:nth-child(71)::before {
-  content: "H";
-}
-.board-grid .cell:nth-child(81)::before {
-  content: "I";
-}
-.board-grid .cell:nth-child(91)::before {
-  content: "J";
-} */
 
 .board-grid .cell:nth-child(91)::before {
   content: "1";
@@ -277,21 +226,8 @@
 }
 
 .draw-ship.hit {
-  background-color: hsl(18 80% 90%);
   background-color: var(--hit);
 }
-
-.draw-ship.hit::after {
-}
-
-/* .info-winner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 30px;
-  margin-bottom: 30px;
-} */
 
 @media screen and (max-width: 1000px) {
   .heading {

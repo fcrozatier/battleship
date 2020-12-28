@@ -44,17 +44,21 @@ const Board = ({ boardInit, dnd, gameboard, onClick, updateBoard }) => {
       </div>
       {dnd && (
         <div className="btn-wrapper">
-          <button className="btn" type="button" onClick={handleRandom}>
-            Random
-          </button>
+          <div className="btn-container">
+            <button className="btn" type="button" onClick={handleRandom}>
+              Random
+            </button>
+          </div>
 
-          <button
-            className="btn"
-            type="button"
-            onClick={() => boardInit(gameboard)}
-          >
-            Continue
-          </button>
+          <div className="btn-container">
+            <button
+              className="btn"
+              type="button"
+              onClick={() => boardInit(gameboard)}
+            >
+              Continue
+            </button>
+          </div>
         </div>
       )}
     </>

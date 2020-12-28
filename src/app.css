@@ -23,13 +23,43 @@
   gap: 20px;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-container::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  background-image: linear-gradient(10.8deg, #119aff, #d227f1);
+  width: 120%;
+  height: 120px;
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  transition: 400ms ease;
+}
+
+.btn-container:hover::after {
+  transform: rotate(0);
+}
+
 .btn {
   background-color: #fff;
-  border: 5px solid #111;
+  border: none;
   padding: 15px 20px;
   outline: none;
   font-family: inherit;
   font-size: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .btn:hover {
@@ -45,6 +75,11 @@
 
 .heading {
   font-size: 40px;
+  background-image: linear-gradient(10.8deg, #119aff, #d227f1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 10 10 2px #fff;
 }
 
 .info-wrapper {

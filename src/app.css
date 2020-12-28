@@ -126,8 +126,8 @@
 .board-grid {
   display: grid;
   grid-template: repeat(10, 40px) / repeat(10, 40px);
-  border: 3px solid #119aff;
-  background-color: #119aff;
+  border: 3px solid var(--secondary);
+  background-color: var(--secondary);
   gap: 3px;
   justify-content: center;
   position: relative;
@@ -141,7 +141,7 @@
   left: 15px;
   content: "1 2 3 4 5 6 7 8 9 10";
   font-size: 10px;
-  color: #119aff;
+  color: var(--secondary);
 } */
 
 .board-grid::before {
@@ -153,14 +153,14 @@
   left: -20px;
   content: "A B C D E F G H I J";
   font-size: 10px;
-  color: #119aff;
+  color: var(--secondary);
 }
 
 .board-grid .cell:nth-child(n + 91)::before {
   position: absolute;
   bottom: -20px;
   left: calc(50% - 5px);
-  color: #119aff;
+  color: var(--secondary);
   font-size: 10px;
 }
 
@@ -168,7 +168,7 @@
   position: absolute;
   top: calc(50% - 5px);
   left: -20px;
-  color: #119aff;
+  color: var(--secondary);
   font-size: 10px;
 } */
 
@@ -267,22 +267,18 @@
   background-color: var(--ship);
 }
 
-.hit {
-  /* background-color: transparent; */
-}
-
 .hit::after {
   content: "";
   display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: hsl(291 77% 66%);
+  background-color: var(--bomb);
 }
 
 .draw-ship.hit {
-  background-color: hsl(300 75% 80%);
-  background-color: hsl(327 92% 84%);
+  background-color: hsl(18 80% 90%);
+  background-color: var(--hit);
 }
 
 .draw-ship.hit::after {

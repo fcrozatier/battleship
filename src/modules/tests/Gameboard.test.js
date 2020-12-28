@@ -108,6 +108,17 @@ test("can rotate", () => {
   expect(gameboard.canRotate("kanoe")).toBeFalsy();
 });
 
+test("cannot rotate over another ship", () => {
+  const gameboard = Gameboard(5);
+  const ship = Ship(4, "kanoe");
+  const ship2 = Ship(2, "kayak");
+  gameboard.position(6, ship, true);
+
+  expect(gameboard.canRotate("kanoe")).toBeTruthy();
+  gameboard.position(7, ship2);
+  expect(gameboard.canRotate("kanoe")).toBeFalsy();
+});
+
 test("rotate", () => {
   const gameboard = Gameboard(2);
   const ship = Ship(2, "kanoe");

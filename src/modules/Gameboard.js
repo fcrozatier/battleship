@@ -29,10 +29,7 @@ export default (size = 10) => {
         if (unit.index <= index && unit.index + unit.ship.length - 1 >= index) {
           return false;
         }
-        if (
-          unit.index <= endIdx &&
-          unit.index + unit.ship.length - 1 >= endIdx
-        ) {
+        if (unit.index >= index && unit.index <= endIdx) {
           return false;
         }
       } else if (unit.ship.id !== ship.id && unit.v) {
@@ -84,10 +81,7 @@ export default (size = 10) => {
           ) {
             return false;
           }
-          if (
-            unit.index <= end &&
-            unit.index + (unit.ship.length - 1) * size >= end
-          ) {
+          if (unit.index >= index && unit.index <= end) {
             return false;
           }
         }

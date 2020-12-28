@@ -32,7 +32,7 @@ function Cell({
 
   const style = {
     backgroundColor:
-      (!isOver && canDrop && "hsl(150deg 100% 98%)") ||
+      (!isOver && canDrop && "hsl(150deg 100% 97%)") ||
       (isOver && canDrop && " hsl(150deg 100% 90%)") ||
       (isOver && !canDrop && " hsl(0deg 100% 96%)"),
   };

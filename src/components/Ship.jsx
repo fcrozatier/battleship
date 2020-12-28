@@ -4,7 +4,16 @@ import { useDrag } from "react-dnd";
 import { GiAnticlockwiseRotation } from "react-icons/gi";
 
 function Ship({ dnd, unit, canRotate, rotate }) {
-  const style = unit.v
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: "ship", id: unit.ship.id },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+
+  const dndFeatures = dnd ? { ref: drag, onDoubleClick: () => rotate() } : {};
+
+  let style = unit.v
     ? {
         width: "80%",
         height: `${unit.ship.length * (40 + 3) - 10}px`,
@@ -18,11 +27,7 @@ function Ship({ dnd, unit, canRotate, rotate }) {
         left: "10%",
       };
 
-  const [, drag] = useDrag({
-    item: { type: "ship", id: unit.ship.id },
-  });
-
-  const dndFeatures = dnd ? { ref: drag, onDoubleClick: () => rotate() } : {};
+  style = isDragging ? { ...style, display: "none" } : style;
 
   return (
     <div style={style} className="ship" {...dndFeatures}>

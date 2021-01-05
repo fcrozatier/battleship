@@ -37,15 +37,10 @@ function App() {
     setPlayer2(player1Turn ? player2 : Player(player2.name, gameboard));
   };
 
-  const saveBoard = (gameboard) => {
-    updatePlayerBoard(gameboard);
-    setGameboards((prev) => prev + 1);
-    if (players === 2) switchPlayers();
-  };
-
   const countingDown = () => {
+    const countdown = 3;
     setLoading(true);
-    setCount(2);
+    setCount(countdown);
 
     const counterId = setInterval(() => {
       setCount((prev) => prev - 1);
@@ -54,7 +49,14 @@ function App() {
     setTimeout(() => {
       setLoading(false);
       clearInterval(counterId);
-    }, 2000);
+    }, countdown * 1000);
+  };
+
+  const saveBoard = (gameboard) => {
+    updatePlayerBoard(gameboard);
+    setGameboards((prev) => prev + 1);
+    if (players === 2) switchPlayers();
+    if (gameboards === 1) countingDown();
   };
 
   const handleClick = (index) => {

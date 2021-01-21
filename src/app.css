@@ -78,6 +78,26 @@
   line-height: 54px;
 }
 
+.fleet-description p:first-child {
+  position: relative;
+  top: -5px;
+}
+
+.fleet-description p:nth-child(3) {
+  position: relative;
+  top: 3px;
+}
+
+.fleet-description p:nth-child(4) {
+  position: relative;
+  top: 4px;
+}
+
+.fleet-description p:nth-child(5) {
+  position: relative;
+  top: 2px;
+}
+
 .fleet-img {
   position: relative;
   top: -1px;

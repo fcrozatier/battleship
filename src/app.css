@@ -5,6 +5,7 @@
   justify-content: flex-start;
   gap: 20px;
   min-height: 100vh;
+  padding-bottom: 30px;
 }
 
 .flex {
@@ -65,6 +66,22 @@
 
 .btn:hover {
   cursor: pointer;
+}
+
+.fleet {
+  margin-top: 60px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 54px;
+}
+
+.fleet-img {
+  position: relative;
+  top: -1px;
+  transform: scale(1.02);
 }
 
 .feedback {

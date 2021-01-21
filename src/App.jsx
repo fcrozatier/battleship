@@ -5,6 +5,7 @@ import ChoosePlayers from "./components/ChoosePlayers";
 import Feedback from "./components/Feedback";
 import Player from "./modules/Player";
 import DashBoard from "./components/DashBoard";
+import Fleet from "./components/Fleet";
 import "./app.css";
 
 function App() {
@@ -77,7 +78,12 @@ function App() {
       />
 
       {/* If number of players is not set or there is a winner */}
-      {!players && <ChoosePlayers onClick={initializeGame} />}
+      {!players && (
+        <>
+          <ChoosePlayers onClick={initializeGame} />
+          <Fleet />
+        </>
+      )}
 
       {/* If the number of initialized boards does not equal the number of players */}
       {!!players && gameboards !== players && (
